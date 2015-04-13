@@ -1,0 +1,17 @@
+{
+    "name": "moalla-moalla/d-c-i",
+    "description": "Description of project DCI.",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Mehdi Moalla",
+            "email": "mehdimoalla2010@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "4.5.0"
+    },
+    "require-dev": {
+        "apigen/apigen": "v4.0.1"
+    }
+}

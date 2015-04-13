@@ -1,0 +1,12 @@
+/* 
+    Created on : 25 déc. 2014, 20:48:32
+    Author     : MOALLA Mehdi
+*/
+@media print {
+    .dci-sidebar{display: none;}
+    .page-header{display: none;}
+    .steps{display: none;}
+    #tab4{margin-top: -230px;}
+    .factprint{display: none;}
+    .pager{display: none;}
+}
