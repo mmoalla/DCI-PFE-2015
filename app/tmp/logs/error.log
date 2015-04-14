@@ -6189,3 +6189,34 @@ Stack Trace:
 #3 C:\wamp\www\DCI\lib\Cake\Core\App.php(904): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2015-04-14 12:17:32 Error: [MissingActionException] Action UsersController::admin_login() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'admin_login',
+)
+Request URL: /DCI/admin/users/login
+Stack Trace:
+#0 C:\wamp\www\DCI\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\DCI\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 C:\wamp\www\DCI\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}
+2015-04-14 14:00:23 Error: Fatal Error (1): Call to undefined method PrescriptionsController::historique() in [C:\wamp\www\DCI\app\Controller\PrescriptionsController.php, line 18]
+2015-04-14 14:00:23 Error: [FatalErrorException] Call to undefined method PrescriptionsController::historique()
+Request URL: /DCI/home/prescriptions/add
+Stack Trace:
+#0 C:\wamp\www\DCI\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', 'C:\\wamp\\www\\DCI...', 18)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', 'C:\\wamp\\www\\DCI...', 18, Array)
+#2 C:\wamp\www\DCI\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', 'C:\\wamp\\www\\DCI...', 18, Array)
+#3 C:\wamp\www\DCI\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}
+2015-04-14 14:01:58 Error: Fatal Error (1): Call to undefined method ExamensController::historique() in [C:\wamp\www\DCI\app\Controller\ExamensController.php, line 24]
+2015-04-14 14:01:59 Error: [FatalErrorException] Call to undefined method ExamensController::historique()
+Request URL: /DCI/home/examens/add
+Stack Trace:
+#0 C:\wamp\www\DCI\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(1, 'Call to undefin...', 'C:\\wamp\\www\\DCI...', 24)
+#1 [internal function]: ErrorHandler::handleError(1, 'Call to undefin...', 'C:\\wamp\\www\\DCI...', 24, Array)
+#2 C:\wamp\www\DCI\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 1, 'Call to undefin...', 'C:\\wamp\\www\\DCI...', 24, Array)
+#3 C:\wamp\www\DCI\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

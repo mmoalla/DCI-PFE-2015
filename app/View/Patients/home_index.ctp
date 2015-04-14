@@ -116,7 +116,7 @@ jQuery().ready(function (){
                 "Prescription": {"patient_id": pid, "user_id": uid}
             },
             success: function (data) {
-                //window.location.href = "<?php echo $this->Html->url(array('controller' => 'patients', 'action' => 'index', 'home' => true)) ?>";
+                window.location.href = "<?php echo $this->Html->url(array('controller' => 'patients', 'action' => 'index', 'home' => true)) ?>";
             }
         });
         //$("#dci-drug").hide();

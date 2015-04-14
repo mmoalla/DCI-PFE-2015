@@ -29,7 +29,7 @@
             <tr ng-repeat="stk in stocks | filter:codePct">
                 <td>{{stk.Medicament.code_pct}}</td>
                 <td>{{stk.Medicament.nom_commercial}}</td>
-                <td><div id="stock" value="{{stk.Stock._id}}">{{stk.Stock.stock}}</div><span id="add"></span></td>
+                <td id="qte"><div id="stock" value="{{stk.Stock._id}}">{{stk.Stock.stock}}</div><span id="add"></span></td>
                 <td>{{stk.Stock.last_unit_price}}</td>
             </tr>
         </tbody>
@@ -44,7 +44,7 @@ $(document).on('ready',function(){
         $("#search").toggle();
     });
     setInterval(function(){
-        $("td").each(function() {
+        $("td#qte").each(function() {
             if ($(this).text() <= 20) {
                 //$("#alert").addClass("animated pulse").css('-webkit-animation-iteration-count', 'infinite').show();
                 $(this).css('font-weight', 'bold').css('width','16%');
