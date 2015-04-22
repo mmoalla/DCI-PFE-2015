@@ -57,7 +57,7 @@ class PagesController extends AppController {
 
         if ($this->Session->read('group.Group.name') === 'bureau admission') {
             //récuperer tous les consultations (bureau admission)
-            //CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le formulaire d'admission");
+            CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le formulaire d'admission");
             $consult = $this->Consultation->find('all', array(
                 'order' => array('Consultation.date', 'Consultation.heure ASC')
             ));
@@ -66,7 +66,7 @@ class PagesController extends AppController {
 
         if ($this->Session->read('group.Group.name') === 'docteur') {
             //récuperer tous les consultations du docteur
-            //CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté son planning journalier");
+            CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté son planning journalier");
             $rdvs = $this->Consultation->find('all', array(
                 'conditions' => array('Consultation.user_id' => $this->Auth->user('_id')),
                 'order' => array('Consultation.date ASC', 'Consultation.heure ASC'),
@@ -115,10 +115,10 @@ class PagesController extends AppController {
     public function search_patient($patient = null) {
         parent::search_patient();
         if ($this->Session->read('group.Group.name') === "bureau admission") {
-            //CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a effectué une recherche d'un employé");
+            CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a effectué une recherche d'un employé");
         }
         if ($this->Session->read('group.Group.name') === "docteur") {
-            //CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a effectué une recherche d'un employé");
+            CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a effectué une recherche d'un employé");
         }
         //Récuperer tout les patients
         $patients = $this->Patient->find('all', array(
@@ -143,7 +143,7 @@ class PagesController extends AppController {
     public function admin_home() {
         $this->layout = 'admin';
         if ($this->Session->read('group.Group.name') === "administration") {
-            //CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté les statistiques ");
+            CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté les statistiques ");
         }
         //liste de raclamations non résolue
         $reclamations = $this->Reclamation->find("all", array(
@@ -233,7 +233,7 @@ class PagesController extends AppController {
         if ($this->request->is('post')) {
             $this->Reclamation->create();
             if ($this->Reclamation->save($this->request->data)) {
-                //CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a envoyé une réclamation intitulé " . $this->request->data['Reclamation']['nom']);
+                CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a envoyé une réclamation intitulé " . $this->request->data['Reclamation']['nom']);
                 $this->Reclamation->saveField('user_id', $user_id);
                 $this->Session->setFlash('Votre réclamation à été transmise au technicien', 'notif', array('type' => 'success'));
                 $this->redirect($this->referer());
@@ -249,7 +249,7 @@ class PagesController extends AppController {
     }
 
     public function admin_presence() {
-        //CakeLog::write("info", "L'administrateur a consulté la liste des absences");
+        CakeLog::write("info", "L'administrateur a consulté la liste des absences");
         $doc = $this->User->find('all', array(
             'fields' => array('nom', 'prenom')
         ));
@@ -271,7 +271,7 @@ class PagesController extends AppController {
         if ($this->request->is('ajax')) {
             $this->user_id = $this->request->data['Presence']['user_id'];
             if ($this->Presence->save($this->request->data)) {
-                //CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
+                CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
                 echo json_encode($this->request->data);
                 $message = 'success';
             } else {

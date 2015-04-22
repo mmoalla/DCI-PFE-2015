@@ -13,7 +13,7 @@ class ConsultationsController extends AppController {
     public function home_index() {
         if ($this->Session->read('group.Group.name') === 'bureau admission') {
             //tous les condultations (bureau admission) dans le calenrier
-            //CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le planning mensuel de l'hôpital");
+            CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le planning mensuel de l'hôpital");
             $consultations = $this->Consultation->find('all');
             $this->set(compact('consultations'));
         }

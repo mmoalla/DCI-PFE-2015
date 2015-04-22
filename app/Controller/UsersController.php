@@ -40,7 +40,7 @@ class UsersController extends AppController {
             $data = $this->request->data;
             $this->User->Behaviors->attach('mongodb.SqlCompatible');
             if ($this->User->save($data)) {
-                //CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté un nouvel employé");
+                CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté un nouvel employé");
                 $message = 'success';
             } else {
                 $message = 'error';
@@ -57,7 +57,7 @@ class UsersController extends AppController {
         if ($this->request->is('put')) {
             if (!empty($this->request->data)) {
                 if ($this->User->save($this->request->data)) {
-                    //CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
+                    CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
                     $message = 'Saved';
                     $this->Session->setFlash(__('Employé modifié'), 'notif', array('type' => 'success'));
                     $this->redirect("http://localhost/DCI/admin/grh");
@@ -87,7 +87,7 @@ class UsersController extends AppController {
      */
     public function admin_view($id = null) {
         $user = $this->User->findById($id);
-        //CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté les informations de l'emplyé " . $user['User']['prenom'] . " " . $user['User']['nom']);
+        CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté les informations de l'emplyé " . $user['User']['prenom'] . " " . $user['User']['nom']);
         $service = $this->Service->find('first', array(
             'conditions' => array('id' => $user['User']['service_id'])
         ));
@@ -115,7 +115,7 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('L\'employé est introuvable', 'notif', array('type' => 'error')));
         }
         if ($this->User->delete()) {
-            //CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a supprimé un employé");
+            CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a supprimé un employé");
             $this->Session->setFlash(__('Employé supprimé'), 'notif', array('type' => 'success'));
             return $this->redirect(array('action' => 'admin_index'));
         }

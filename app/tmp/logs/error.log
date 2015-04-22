@@ -6220,3 +6220,14 @@ Stack Trace:
 #3 C:\wamp\www\DCI\lib\Cake\Core\App.php(904): App::_checkFatalError()
 #4 [internal function]: App::shutdown()
 #5 {main}
+2015-04-20 19:59:55 Error: [MissingActionException] Action UsersController::home_login() could not be found.
+Exception Attributes: array (
+  'controller' => 'UsersController',
+  'action' => 'home_login',
+)
+Request URL: /DCI/home/users/login
+Stack Trace:
+#0 C:\wamp\www\DCI\lib\Cake\Routing\Dispatcher.php(193): Controller->invokeAction(Object(CakeRequest))
+#1 C:\wamp\www\DCI\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(UsersController), Object(CakeRequest))
+#2 C:\wamp\www\DCI\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#3 {main}

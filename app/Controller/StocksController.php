@@ -29,16 +29,14 @@ class StocksController extends AppController {
 
     public function home_ajouter_stock() {
         if ($this->request->is(array('put', 'post'))) {
-            //
             $med_id = $this->request->data['Stock']['medicament_id'];
-
             $stock = $this->Stock->find('first', array(
                 'conditions' => array('medicament_id' => $med_id)
             ));
             // POST
             if (empty($stock)) {
                 if ($this->Stock->save($this->request->data)) {
-                    //$this>historique("L'administrateur " . $this>Auth>user("prenom") . " " . $this>Auth>user("nom") . " a modifié l'employé " . $this>request>data['User']['prenom'] . " " . $this>request>data['User']['nom']);
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
                     $this->Session->setFlash(__('Stock Ajouté'), 'notif', array('type' => 'success'));
                     $this->redirect(array('controller' => 'stocks', 'action' => 'home_index'));
                 } else {
@@ -51,7 +49,7 @@ class StocksController extends AppController {
                 $qte = $stock['Stock']['stock'] + $this->request->data['Stock']['stock'];
                 $stock['Stock']['stock'] = $qte;
                 if ($this->Stock->save($stock)) {
-                    //$this>historique("L'administrateur " . $this>Auth>user("prenom") . " " . $this>Auth>user("nom") . " a modifié l'employé " . $this>request>data['User']['prenom'] . " " . $this>request>data['User']['nom']);
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
                     $this->Session->setFlash(__('Stock modifié'), 'notif', array('type' => 'success'));
                     $this->redirect(array('controller' => 'stocks', 'action' => 'home_index'));
                 } else {
@@ -69,7 +67,7 @@ class StocksController extends AppController {
         if ($this->request->is('put')) {
             if (!empty($this->request->data)) {
                 if ($this->Stock->save($this->request->data)) {
-                    //$this->historique("L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié la chambre n° " . $this->request->data['Chambre']['numero']);
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié la chambre n° " . $this->request->data['Chambre']['numero']);
                     $this->Session->setFlash(__('Stocks alimenté'), 'notif', array('type' => 'success'));
                     $this->redirect(array('action' => 'index'));
                 } else {
