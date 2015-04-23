@@ -36,7 +36,7 @@ class StocksController extends AppController {
             // POST
             if (empty($stock)) {
                 if ($this->Stock->save($this->request->data)) {
-                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a ajouté des medicaments au stock");
                     $this->Session->setFlash(__('Stock Ajouté'), 'notif', array('type' => 'success'));
                     $this->redirect(array('controller' => 'stocks', 'action' => 'home_index'));
                 } else {
@@ -49,7 +49,7 @@ class StocksController extends AppController {
                 $qte = $stock['Stock']['stock'] + $this->request->data['Stock']['stock'];
                 $stock['Stock']['stock'] = $qte;
                 if ($this->Stock->save($stock)) {
-                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a ajouté des médicaments au stock ");
                     $this->Session->setFlash(__('Stock modifié'), 'notif', array('type' => 'success'));
                     $this->redirect(array('controller' => 'stocks', 'action' => 'home_index'));
                 } else {

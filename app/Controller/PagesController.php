@@ -122,7 +122,7 @@ class PagesController extends AppController {
         }
         //Récuperer tout les patients
         $patients = $this->Patient->find('all', array(
-            'fields' => array('Patient.prenom', 'Patient.nom'),
+            'fields' => array('Patient.prenom', 'Patient.nom', 'Patient.avatar'),
             'conditions' => array('Patient.prenom' => new MongoRegex("/$patient/i"))
         ));
         $this->set('patients', $patients);
@@ -172,8 +172,18 @@ class PagesController extends AppController {
     public function stat_benefice() {
         //Récuperer tout les bénéfices de l'hôpital
         $benefices = $this->Facture->find('all', array(
-            'fields' => array('created', 'montant')
+            'fields' => array('montant', 'created'),
+            'conditions' => array('aggregate' => array(
+                array('$group' => array(
+                    //'_id' => null,
+                    '_id' => array('year' => array('$year' => '$created'), 'month' => array('$month' => '$created'), 'day' => array('$dayOfMonth' => '$created')),
+                    //'date' => array('$push' => '$created' ),
+                    'montant' => array('$sum' => '$montant')
+                ))
+            ))
         ));
+
+        //$benefices = $this->Facture->query("db.factures.find([{'_id':1}])");
         $this->set(compact('benefices'));
     }
 

@@ -60,9 +60,9 @@ jQuery().ready(function () {
     $("#motif").on("change", function () {
         var designation = $("#designation").val();
         if (designation !== "") {
-            $("#desgcof").append(designation);
+            $("#desgcof").html(designation);
         } else {
-            $("#desgcof").append("");
+            $("#desgcof").html("");
         }
     });
     $('#rootwizard').bootstrapWizard({
@@ -251,12 +251,12 @@ jQuery().ready(function () {
         $.getJSON("http://localhost/DCI/pages/search_patient/" + search + ".json", function (data) {
             var items = [];
             $.each(data, function (key, val) {
-                items.push("<ul class='dci-search'><li data-value='" + val.Patient._id + "'><a href='#' id='showP'>" + val.Patient.prenom + " " + val.Patient.nom + "</a></li></ul>");
+                items.push("<ul class='dci-search'><li data-value='" + val.Patient._id + "'><a href='#' id='showP'><img src='/DCI/img/avatars/" + val.Patient.avatar + "' /><span>" + val.Patient.prenom + " " + val.Patient.nom + "</span></a></li></ul>");
                 if (!$.isEmptyObject(val) && search !== "") {
                     $("#ressearch").html(items).show();
                 } else if ($.isEmptyObject(val)) {
                     console.log("b");
-                    //$("#ressearch").html("<ul class='dci-search'><li>Aucun patient ne correspond à votre recherche</li></ul>").show();
+                    $("#ressearch").html("<ul class='dci-search'><li>Aucun patient ne correspond à votre recherche</li></ul>").show();
                     //$("#ressearch").hide();
                 }
             });
@@ -282,11 +282,19 @@ jQuery().ready(function () {
             $("#tel").attr('readonly', 'readonly').val(data.Patient.tel);
             $("#email").attr('readonly', 'readonly').val(data.Patient.email);
             $("#age").attr('readonly', 'readonly').val(data.Patient.age);
-            $("#avatar").attr('readonly', 'readonly');
+            $('#avatar-addon').remove();
+            $("#avatar").replaceWith("<img style='max-width: 100%;height: 225px;display: block;border-radius: 3px;' class='thumbnail' src='/DCI/img/avatars/" + data.Patient.avatar + "' />");
+            $("#dci-form-column").css('top', '-218px').css('margin-bottom', '-240px');
             $("#taille").attr('readonly', 'readonly').val(data.Patient.taille);
             $("#poids").attr('readonly', 'readonly').val(data.Patient.poids);
             $("#blood").attr('readonly', 'readonly').val(data.Patient.blood);
             $("#numss").attr('readonly', 'readonly').val(data.Patient.numss);
+            if ($("#nom").val() !== "" && $("#prenom").val() !== "" && $("#adresse").val() !== "" && $("#tel").val() !== "") {
+                $("#no").html($("#nom").val());
+                $("#pr").html($("#prenom").val());
+                $("#adr").html($("#adresse").val());
+                $("#phone").html($("#tel").val());
+            }
         });
     });
     /******************* Folder Patient *******************/

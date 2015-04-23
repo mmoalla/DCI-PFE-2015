@@ -25,7 +25,7 @@ class ChambresController extends AppController {
             $this->Chambre->set($this->request->data);
             $this->Chambre->create();
             if ($this->Chambre->save($this->request->data)) {
-                CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté une nouvelle chambre");
+                CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté une nouvelle chambre.");
                 $this->Session->setFlash("La chambre a été enregistrée", 'notif', array('type' => 'success'));
             } else {
                 $this->Session->setFlash("Une erreur s'est produite. Réesayer", 'notif', array('type' => 'error'));
@@ -43,7 +43,7 @@ class ChambresController extends AppController {
         if ($this->request->is('put')) {
             if (!empty($this->request->data)) {
                 if ($this->Chambre->save($this->request->data)) {
-                    CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié la chambre n° " . $this->request->data['Chambre']['numero']);
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié la chambre n° " . $this->request->data['Chambre']['numero'] . '.');
                     $this->Session->setFlash(__('Chambre modifié'), 'notif', array('type' => 'success'));
                     $this->redirect(array('action' => 'index'));
                 } else {
@@ -68,7 +68,7 @@ class ChambresController extends AppController {
             $this->Session->setFlash(__('La chambre est introuvable', 'notif', array('type' => 'error')));
         }
         if ($this->Chambre->delete()) {
-            CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a supprimé une chambre ");
+            CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a supprimé une chambre.");
             $this->Session->setFlash(__('Chambre supprimé'), 'notif', array('type' => 'success'));
             return $this->redirect(array('action' => 'index'));
         }

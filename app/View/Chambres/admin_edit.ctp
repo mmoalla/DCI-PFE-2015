@@ -11,10 +11,6 @@
             <?php echo $this->Form->input('numero', array('class' => 'form-control', 'id' => 'numero')); ?>
         </div>
         <div class="form-group" style="margin: 0 0 10px 0;">
-            <label for="etage" class="control-label">N° de l'étage&nbsp;&ast;</label>
-            <?php echo $this->Form->input('etage', array('class' => 'form-control', 'id' => 'etage')); ?>
-        </div> 
-        <div class="form-group" style="margin: 0 0 10px 0;">
             <label for="nbrlit" class="control-label">Nombre de lit&nbsp;&ast;</label>
             <?php echo $this->Form->input('nbrlit', array('class' => 'form-control', 'id' => 'nbrlit')); ?>
         </div> 

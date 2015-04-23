@@ -41,4 +41,19 @@ class Patient extends AppModel {
         ),
     );
 
+    public function beforeSave($options = array()) {
+        parent::beforeSave($options);
+        if (!empty($this->data[$this->alias]['tel']) && !empty($this->data[$this->alias]['age']) && !empty($this->data[$this->alias]['numss']) && !empty($this->data[$this->alias]['taille']) && !empty($this->data[$this->alias]['poids'])) {
+            //convertir un string en float 
+            $this->data[$this->alias]['taille'] = floatval($this->data[$this->alias]['taille']);
+            $this->data[$this->alias]['poids'] = floatval($this->data[$this->alias]['poids']);
+
+            //convertir un string en int
+            $this->data[$this->alias]['tel'] = intval($this->data[$this->alias]['tel']);
+            $this->data[$this->alias]['age'] = intval($this->data[$this->alias]['age']);
+            $this->data[$this->alias]['numss'] = intval($this->data[$this->alias]['numss']);
+        }
+        return true;
+    }
+
 }

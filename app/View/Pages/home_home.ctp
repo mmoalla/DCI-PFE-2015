@@ -98,7 +98,7 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="tab1">
                     <div style="display: none;" id="alert" class="alert alert-danger"></div>
-                    <h3 class="block" style="border-bottom: 1px solid #e7e7e7;padding-bottom: 20px;">Fournir les détail du dossier patient</h3>
+                    <h3 class="block" style="border-bottom: 1px solid #e7e7e7;padding-bottom: 20px;">Fournir les détails du dossier patient</h3>
                     <div class="dci-form-column">
                         <div class="form-group">
                             <label for="nom" class="control-label">Nom</label>
@@ -163,16 +163,11 @@
                             <?php echo $this->Form->input('Patient.age', array('class' => 'form-control', 'id' => 'age', 'type' => 'text', 'ng-model' => 'age', 'autocomplete' => "off", 'readonly')); ?>
                         </div>
                         <div class="form-group">
-                            <label for="avatar" class="control-label" id="lblavatar">Image du patient (jpg/png)</label>
-                            <div class="input-group-addon" style="width: auto;position: absolute;border-radius: 3px 0 0 3px;padding: 13px;"><i class="fa fa-picture-o"></i></div>
-                            <?php echo $this->Form->input('Patient.avatar_file', array('class' => 'form-control', 'id' => 'avatar', 'type' => 'file', 'style' => 'padding-left:50px;')); ?>
-                        </div>
-                    </div>
-                    <div class="dci-form-column" style="position: relative;top: -187px;">
-                        <div class="form-group">
                             <label for="taille" class="control-label">Taille</label>
                             <?php echo $this->Form->input('Patient.taille', array('class' => 'form-control', 'id' => 'taille', 'ng-model' => 'taille', 'autocomplete' => "off", 'placeholder' => 'ex: 1.72')); ?>
                         </div>
+                    </div>
+                    <div class="dci-form-column" id="dci-form-column" style="position: relative;top: -187px;">
                         <div class="form-group">
                             <label for="poids" class="control-label">Poids</label>
                             <?php echo $this->Form->input('Patient.poids', array('class' => 'form-control', 'id' => 'poids', 'ng-model' => 'poids', 'autocomplete' => "off", 'placeholder' => 'ex: 65.5')) ?>
@@ -185,6 +180,11 @@
                         <div class="form-group">
                             <label for="numss" class="control-label">N° Sécu. Soc.</label>
                             <?php echo $this->Form->input('Patient.numss', array('class' => 'form-control', 'id' => 'numss', 'type' => 'text', 'ng-model' => 'numss', 'maxlength' => '10', 'autocomplete' => "off")); ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="avatar" class="control-label" id="lblavatar">Image du patient (jpg/png)</label>
+                            <div id="avatar-addon" class="input-group-addon" style="width: auto;position: absolute;border-radius: 3px 0 0 3px;padding: 13px;"><i class="fa fa-picture-o"></i></div>
+                            <?php echo $this->Form->input('Patient.avatar_file', array('class' => 'form-control', 'id' => 'avatar', 'type' => 'file', 'style' => 'padding-left:50px;')); ?>
                         </div>
                     </div>
                     <!------------------------------------ / END FORM 1 : DOSSIER PATIENT ------------------------------------->
@@ -262,7 +262,7 @@
                     <div class="dci-form-column" style="position: absolute;">
                         <div class="form-group">
                             <label for="typepaiement" class="control-label">Type paiement</label>
-                            <?php echo $this->Form->input('Facture.typepaiement', array('class' => 'form-control', 'id' => 'typepaiement', 'style' => 'padding: 0 0 0 10px;', 'options' => array('Carte bancaire' => 'Carte bancaire', 'Espèse' => 'Espèse', 'Chèque' => 'Chèque'), 'empty' => 'Choisissez le type de paiement', 'ng-model="typepaiement"')); ?>
+                            <?php echo $this->Form->input('Facture.typepaiement', array('class' => 'form-control', 'id' => 'typepaiement', 'style' => 'padding: 0 0 0 10px;', 'options' => array('Carte bancaire' => 'Carte bancaire', 'Espèse' => 'Espèce', 'Chèque' => 'Chèque'), 'empty' => 'Choisissez le type de paiement', 'ng-model="typepaiement"')); ?>
                         </div>
                         <div class="carte-banque" style="display: none;">
                             <div class="form-group">
@@ -301,16 +301,16 @@
                         <table class="dci-form-column facture">
                             <tr>
                                 <td>
-                                    <p>Nom et prénom : {{prenom}}&nbsp;{{nom}}</p>
+                                    <p>Nom et prénom : <span id="pr">{{prenom}}</span> &nbsp;<span id="no">{{nom}}</span></span></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <p>Adresse : {{adresse}}</p>
+                                    <p>Adresse : <span id="adr">{{adresse}}</span></p>
                                 </td>
                             </tr>
                             <td>
-                                <p>Téléphone : {{tel}}</p>
+                                <p>Téléphone : <span id="phone">{{tel}}</span></p>
                             </td>
                         </table>
                         <table class="table table-bordered table-hover">

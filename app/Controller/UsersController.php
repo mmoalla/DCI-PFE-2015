@@ -181,7 +181,7 @@ class UsersController extends AppController {
                 $prefix = $this->isAuthorized(current($this->request->data));
                 $this->Session->write('prefix', $prefix);
                 $this->Session->write('group', $this->grp);
-                $this->DCI_Session->save(array('user_id' => $this->Auth->user('_id')));
+                //$this->DCI_Session->save(array('user_id' => $this->Auth->user('_id')));
                 if ($this->Session->read('group.Group.name') === "administration") {
                     CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " s'est connecté.");
                 } elseif ($this->Session->read('group.Group.name') === "technique") {
@@ -210,9 +210,9 @@ class UsersController extends AppController {
             CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " s'est déconnecté.");
         }
         $id = $this->Auth->user('_id');
-        $session = $this->DCI_Session->find('first', array('conditions' => array('DCI_Session.user_id' => $id)));
+        //$session = $this->DCI_Session->find('first', array('conditions' => array('DCI_Session.user_id' => $id)));
         if (!empty($id)) {
-            $this->DCI_Session->delete($session['DCI_Session']['_id']);
+            //$this->DCI_Session->delete($session['DCI_Session']['_id']);
         }
         $this->Auth->logout();
         $this->Session->destroy();

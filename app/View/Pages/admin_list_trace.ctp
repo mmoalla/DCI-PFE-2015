@@ -1,6 +1,6 @@
 <div class="row">
     <div class="container">
-        <h1><i class="fa fa-history"></i> Historique des activitées de l'hôpital</h1><hr>
+        <h1><i class="fa fa-history"></i> Historique des activités de l'hôpital</h1><hr>
         <?php
         if (file_exists(APP . 'tmp' . DS . 'logs' . DS . 'historique_dci.log')):
             $historique = file_get_contents(LOGS . 'historique_dci.log');

@@ -6,14 +6,14 @@
 <?php if ($this->Session->read('group.Group.name') == "administration"): ?>
     <div class="row">
         <div class="container">
-            <h1><i class="fa fa-area-chart"></i> Statistique</h1><hr>
+            <h1><i class="fa fa-area-chart"></i> Statistiques</h1><hr>
             <div class="col-lg-12" style="margin-bottom: 20px;">
                 <div class="col-lg-3">
                     <div class="statpatient">
                         <div class="statpt-visual"><i class="fa fa-user"></i></div>
                         <div class="statpt-detail">
                             <span class="nombre" id="patient"><?php echo $patientct; ?></span><br>
-                            <span class="text">Patient admis</span>
+                            <span class="text">Patient(s) admis</span>
                         </div>
                     </div>
                 </div>
@@ -31,23 +31,23 @@
                         <div class="statpt-visual"><i class="fa fa-sign-in"></i></div>
                         <div class="statpt-detail">
                             <span class="nombre" style="right: 25px;" id="connect"></span><br>
-                            <span class="text">Connecté</span>
+                            <span class="text">Connecté(s)</span>
                         </div>
                     </div>
                 </div>      
             </div>
-            <div class="col-lg-12">
-                <div class="col-lg-6">                    
-                    <div class="panel panel-primary">
-                        <div class="panel panel-heading" style="border-radius: 3px 3px 0 0;">
-                            <h4 style="text-align: center;"><i class="fa fa-line-chart"></i> Bénéfice de l'hôpital par jour</h4>
-                        </div>
-                        <div class="panel panel-body" style="height: 300px;-webkit-box-shadow: none;box-shadow: none;padding: 0;">
-                            <div id="dci_chart_benefice" style="width: 100%;height: 400px;"></div>
-                        </div>
+            <div class="col-lg-12" style="padding: 0;">                    
+                <div class="panel panel-primary">
+                    <div class="panel panel-heading" style="border-radius: 3px 3px 0 0;">
+                        <h4 style="text-align: center;"><i class="fa fa-line-chart"></i> Bénéfice de l'hôpital par jour</h4>
+                    </div>
+                    <div class="panel panel-body">
+                        <div id="dci_chart_benefice" style="width: 100%;height: 400px;"></div>
                     </div>
                 </div>
-                <div class="col-lg-6">
+            </div>
+            <div class="col-lg-12" style="padding: 0;">
+                <div class="col-lg-8" style="padding-left: 0; padding-right: 15px;">
                     <div class="panel panel-primary">
                         <div class="panel panel-heading" style="border-radius: 3px 3px 0 0;">
                             <h4 style="text-align: center;"><i class="fa fa-pie-chart"></i> Pourcentage du personnel par sexe</h4>
@@ -57,17 +57,17 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-2" style="position: absolute;top: 282px;right: 22px;">
-                <div class="panel panel-primary" style="height: 405px;">
+                <div class="col-lg-4" style="padding: 0;">
+                    <div class="panel panel-primary" style="height: 405px;">
                     <div class="panel panel-heading" style="border-radius: 3px 3px 0 0;">
-                        <h4 style="text-align: center;"><i class="fa fa-users"></i> Utilisateurs connecté</h4>
+                        <h4 style="text-align: center;"><i class="fa fa-users"></i> Utilisateurs connectés</h4>
                     </div>
                     <div class="panel panel-body" ng-controller="ListConnecterController">
                         <ul class="statctx" ng-repeat="ctx in connecter">
                             <li><span style="font-weight: bold;margin-right: 3px;">{{ctx.User.prenom}} {{ctx.User.nom}}</span> <span id="moment" class="label label-info"> {{ctx.User.time_login}} </span></li>
                         </ul>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
@@ -120,14 +120,14 @@ var chart = AmCharts.makeChart("dci_chart_sexe",{
     "titleField": "Sexe"
 });
 $.getJSON("http://localhost/DCI/pages/stat_benefice.json", function (data) {
-    if(data){
+    if(data.length != 0){
         var cData = [];
         var datas = [];
         datas = JSON.stringify(data);
         for (var i = 0; i < data.length; i++) {
             if(datas[i]){
                 var dataObject = {
-                    "date": data[i].Facture.created,
+                    "date": data[i].Facture._id.year + "-" + data[i].Facture._id.month + "-" +  data[i].Facture._id.day,
                     "value": data[i].Facture.montant
                 };
                 cData.push(dataObject);
@@ -139,7 +139,8 @@ $.getJSON("http://localhost/DCI/pages/stat_benefice.json", function (data) {
             "valueAxes": [{
                 "id":"v1",
                 "axisAlpha": 0,
-                "position": "left"
+                "position": "left",
+                "title":"Bénéfice"
             }],
             "graphs": [{
                 "id": "g1",
@@ -158,25 +159,23 @@ $.getJSON("http://localhost/DCI/pages/stat_benefice.json", function (data) {
                 "parseDates": true,
                 "dashLength": 1,
                 "minorGridEnabled": true,
-                "position": "bottom"
+                "position": "bottom",
+                "title": "date"
             },
             "dataProvider": cData
         });
-    } else{
-        $("#dci_chart_benefice").html("Pas de bénéfice aujourd'hui");
     }
 });
-setInterval(function(){
+/*setInterval(function(){
     $.ajax({
         url : '<?php echo $this->Html->url(array('controller'=>'users','action'=>'nbr_connecter','admin'=>false),true); ?>',
         success : function(response){
             $("#connect").html(response);
         }
     });            
-},3000);
+},3000);*/
 <?php echo $this->Html->scriptEnd(); ?>
 <style type="text/css">
-    #dci_chart_benefice .amcharts-chart-div, 
     #dci_chart_sexe .amcharts-chart-div{
         top: -100px;
         overflow:hidden;

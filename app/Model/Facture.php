@@ -18,7 +18,6 @@ class Facture extends AppModel {
         'montant' => array('type' => 'float'),
         'designation' => array('type' => 'string'),
         'tva' => array('type' => 'float'),
-        'timbre' => array('type' => 'float'),
         'totalttc' => array('type' => 'float'),
         'acompte' => array('type' => 'float'),
         'typepaiement' => array('type' => 'string'),
@@ -27,7 +26,7 @@ class Facture extends AppModel {
         'cryptogramme' => array('type' => 'integer'),
         'devise' => array('type' => 'string'),
         'numcheque' => array('type' => 'integer'),
-        'patient_id' => array('type' => 'integer'),
+        'patient_id' => array('type' => 'string'),
         'created' => array('type' => 'datetime')
     );
     public $validate = array(
@@ -42,5 +41,14 @@ class Facture extends AppModel {
     );
     //many to one
     public $belongsTo = array('Patient');
+
+    public function beforeSave($options = array()) {
+        parent::beforeSave($options);
+        if (!empty($this->data[$this->alias]['montant'])) {
+            //convertir un string en float 
+            $this->data[$this->alias]['montant'] = floatval($this->data[$this->alias]['montant']);
+        }
+        return true;
+    }
 
 }

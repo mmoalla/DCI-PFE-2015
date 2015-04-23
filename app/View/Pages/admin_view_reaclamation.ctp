@@ -5,7 +5,7 @@
             <div style="position: relative;">
                 <?php echo $rec['Reclamation']['nom']; ?>
                 <div style="position: absolute;top: 0;right: 0;" id="resolue">
-                    Resoudre&nbsp; 
+                    Resolu&nbsp; 
                     <span class="rounded"></span>
                     <input type="checkbox" id="solve"/>
                 </div>

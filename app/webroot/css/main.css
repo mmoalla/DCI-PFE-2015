@@ -523,10 +523,12 @@ h1,h2,h3,h4,h5,h6{
 }
 #ressearch{
     position: relative;
-    border: solid 1px #c8c8c8;
+    border: 2px solid #dce4ec;
+    border-radius: 0px 0px 4px 4px;
     width: 300px;
-    margin-left: 350px;
-    margin-top: -11px;
+    margin-left: 351px;
+    margin-top: -12px;
+    padding-top: 10px;
 }
 .my-new-list{
     padding: 0;
@@ -714,7 +716,17 @@ table > tbody > tr > td{
     display: block;
     padding: 10px;
 }
-.dci-search li a:hover{ background-color: #f5f5f5; }
+.dci-search li a:hover{ 
+    color: #000;
+    background-color: #f5f5f5; 
+}
+
+.dci-search li a img{
+    width: 50px;
+    height: 50px;
+    border-radius: 3px;
+    margin-right: 20px;
+}
 
 /**************** Stat nombre de patient admis *********************/
 .statpatient{

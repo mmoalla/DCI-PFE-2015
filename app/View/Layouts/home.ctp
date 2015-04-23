@@ -75,7 +75,7 @@ License: Open Source
                     <span class="dci-today">
                         <?php 
                         echo $this->Html->script('moment/moment.min'); 
-                        echo $this->Html->script('moment/ar-tn');
+                        echo $this->Html->script('moment/fr');
                         ?>
                         <?php echo $this->Html->scriptStart(array('inline' => false)); ?>
                         jQuery().ready(function (){
