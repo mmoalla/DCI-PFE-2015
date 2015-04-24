@@ -62,11 +62,15 @@
             </div>
             <div id="choiceTit" class="form-group">
                 <label for="titulaire" class="control-label">Titulaire ?</label>
-                <?php echo $this->Form->input('User.titulaire', array('id' => 'titulaire')); ?>
+                <?php 
+                echo $this->Form->input('User.titulaire', array('id' => 'titulaire')); 
+                ?>
             </div>
             <div class="form-group">
                 <label for="status" class="control-label">Disponible ?</label>
-                <?php echo $this->Form->input('User.status', array('id' => 'status')); ?>
+                <?php 
+                echo $this->Form->input('User.status', array('id' => 'status'));
+                ?>
             </div>
         </div>
         <div class="form-group">

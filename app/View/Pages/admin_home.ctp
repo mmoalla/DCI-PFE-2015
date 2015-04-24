@@ -12,8 +12,13 @@
                     <div class="statpatient">
                         <div class="statpt-visual"><i class="fa fa-user"></i></div>
                         <div class="statpt-detail">
-                            <span class="nombre" id="patient"><?php echo $patientct; ?></span><br>
-                            <span class="text">Patient(s) admis</span>
+                            <?php if($patientct == 1): ?>
+                                <span class="nombre" id="patient"><?php echo $patientct; ?></span><br>
+                                <span class="text">Patient admis</span>
+                            <?php elseif($patientct > 1): ?>
+                                <span class="nombre" id="patient"><?php echo $patientct; ?></span><br>
+                                <span class="text">Patients admis</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -22,7 +27,11 @@
                         <div class="statpt-visual"><i class="fa fa-bed"></i></div>
                         <div class="statpt-detail">
                             <span class="nombre" style="right: 25px;" id="chambre"><?php echo $chambrect; ?></span><br>
-                            <span class="text">Chambres</span>
+                            <?php if($chambrect == 1): ?>
+                                <span class="text">Chambre</span>
+                            <?php elseif($chambrect > 1): ?>
+                                <span class="text">Chambres</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -31,7 +40,7 @@
                         <div class="statpt-visual"><i class="fa fa-sign-in"></i></div>
                         <div class="statpt-detail">
                             <span class="nombre" style="right: 25px;" id="connect"></span><br>
-                            <span class="text">Connecté(s)</span>
+                            <span class="text" id="connectTxt"></span>
                         </div>
                     </div>
                 </div>      
@@ -47,7 +56,7 @@
                 </div>
             </div>
             <div class="col-lg-12" style="padding: 0;">
-                <div class="col-lg-8" style="padding-left: 0; padding-right: 15px;">
+                <div class="col-lg-9" style="padding-left: 0; padding-right: 15px;">
                     <div class="panel panel-primary">
                         <div class="panel panel-heading" style="border-radius: 3px 3px 0 0;">
                             <h4 style="text-align: center;"><i class="fa fa-pie-chart"></i> Pourcentage du personnel par sexe</h4>
@@ -57,14 +66,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4" style="padding: 0;">
+                <div class="col-lg-3" style="padding: 0;">
                     <div class="panel panel-primary" style="height: 405px;">
                     <div class="panel panel-heading" style="border-radius: 3px 3px 0 0;">
                         <h4 style="text-align: center;"><i class="fa fa-users"></i> Utilisateurs connectés</h4>
                     </div>
-                    <div class="panel panel-body" ng-controller="ListConnecterController">
+                        <div class="panel panel-body" style="overflow-y: auto;height: 75%;" ng-controller="ListConnecterController">
                         <ul class="statctx" ng-repeat="ctx in connecter">
-                            <li><span style="font-weight: bold;margin-right: 3px;">{{ctx.User.prenom}} {{ctx.User.nom}}</span> <span id="moment" class="label label-info"> {{ctx.User.time_login}} </span></li>
+                            <li style="text-align: center;font-size: 20px;font-weight: bold;"><span>{{ctx.User.prenom}} {{ctx.User.nom}}</span><hr></li>
                         </ul>
                     </div>
                 </div>
@@ -120,60 +129,86 @@ var chart = AmCharts.makeChart("dci_chart_sexe",{
     "titleField": "Sexe"
 });
 $.getJSON("http://localhost/DCI/pages/stat_benefice.json", function (data) {
-    if(data.length != 0){
+    if(data.length !== 0){
         var cData = [];
-        var datas = [];
-        datas = JSON.stringify(data);
-        for (var i = 0; i < data.length; i++) {
-            if(datas[i]){
+        if (data !== null) {
+            $.each(data, function (index, value) {
                 var dataObject = {
-                    "date": data[i].Facture._id.year + "-" + data[i].Facture._id.month + "-" +  data[i].Facture._id.day,
-                    "value": data[i].Facture.montant
+                    "date": value.Facture._id.year + '-' + value.Facture._id.month + '-' +  value.Facture._id.day,
+                    "value": value.Facture.montant
                 };
                 cData.push(dataObject);
-            }
+            });
         }
         var chart = AmCharts.makeChart("dci_chart_benefice", {
-            "type": "serial",
             "theme": "light",
+            "type": "serial",
+            "marginRight": 80,
+            "autoMarginOffset": 20,    
+            "marginTop":20,
+            "pathToImages": "http://www.amcharts.com/lib/3/images/",
+            "dataProvider": cData,
             "valueAxes": [{
-                "id":"v1",
-                "axisAlpha": 0,
-                "position": "left",
-                "title":"Bénéfice"
+                "id": "v1",
+                "axisAlpha": 0.1,
+                "title":"Bénéfice (TND)"
             }],
             "graphs": [{
-                "id": "g1",
+                "useNegativeColorIfDown": true,
+                "balloonText": "date: [[category]]<br><b>montant: [[value]] TND</b>",
                 "bullet": "round",
                 "bulletBorderAlpha": 1,
-                "bulletColor": "#FFFFFF",
-                "bulletSize": 5,
+                "bulletBorderColor": "#FFFFFF",
                 "hideBulletsCount": 50,
                 "lineThickness": 2,
-                "title": "red line",
-                "useLineColorForBulletBorder": true,
+                "lineColor": "#fdd400",
+                "negativeLineColor": "#67b7dc",
                 "valueField": "value"
             }],
+            "chartScrollbar": {
+                "scrollbarHeight": 5,
+                "backgroundAlpha": 0.1,
+                "backgroundColor": "#868686",
+                "selectedBackgroundColor": "#67b7dc",
+                "selectedBackgroundAlpha": 1
+            },
             "categoryField": "date",
             "categoryAxis": {
-                "parseDates": true,
-                "dashLength": 1,
-                "minorGridEnabled": true,
-                "position": "bottom",
+                "parseDates": false,
+                "axisAlpha": 0,
+                "minHorizontalGap": 60,
                 "title": "date"
             },
-            "dataProvider": cData
+            "export": {
+                "enabled": true,
+                "libs": {
+                    "path": "http://www.amcharts.com/lib/3/plugins/export/libs/"
+                }
+            }
         });
+        chart.addListener("dataUpdated", zoomChart);
+        //zoomChart();
+
+        function zoomChart() {
+            if (chart.zoomToIndexes) {
+                chart.zoomToIndexes(130, chartData.length - 1);
+            }
+        }
     }
 });
-/*setInterval(function(){
+setInterval(function(){
     $.ajax({
         url : '<?php echo $this->Html->url(array('controller'=>'users','action'=>'nbr_connecter','admin'=>false),true); ?>',
         success : function(response){
             $("#connect").html(response);
+            if(response == 1){
+                $("#connectTxt").html("Connceté");
+            }else if(response > 1){
+                $("#connectTxt").html("Conncetés");
+            }
         }
     });            
-},3000);*/
+},3000);
 <?php echo $this->Html->scriptEnd(); ?>
 <style type="text/css">
     #dci_chart_sexe .amcharts-chart-div{

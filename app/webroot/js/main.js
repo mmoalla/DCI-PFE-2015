@@ -235,7 +235,7 @@ jQuery().ready(function () {
         formatSubmit: 'yyyy-mm-dd',
         selectYears: true,
         selectMonths: true,
-        min: [1970, 01, 01],
+        min: [1900, 01, 01],
         max: [2013, 12, 31]
     });
     $('.timepicker').pickatime({

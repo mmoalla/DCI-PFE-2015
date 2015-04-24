@@ -4,8 +4,8 @@
             <div class="col-lg-6">
                 <?php echo $this->Html->image('logo-dci.png', array('style' => 'width:120px;')); ?>
                 <blockquote style="margin-top: 10px;">
-                    <p><strong>Adresse</strong> : lorem ipsum dolor</p>
-                    <p><strong>Tél</strong> : +216 71 130 130</p>
+                    <p><strong>Adresse</strong> : <?php echo $user['User']['adresse']; ?></p>
+                    <p><strong>Tél</strong> : <?php echo $user['User']['phone']; ?></p>
                 </blockquote>
             </div>
             <div class="col-lg-6" style="margin-top: 140px;">
@@ -33,14 +33,14 @@
                 </tr>
                 <tr>
                     <td>Prime</td>
-                    <td>Heure supplémentaire</td>
+                    <td>Prime de déplacement </td>
                     <td></td>
-                    <td>200</td>
+                    <td>50</td>
                     <td></td>
                 </tr>
                 <tr>
                     <td colspan="4" style="text-align: right;font-weight: bold;font-size: 20px;">Total</td>
-                    <td></td>
+                    <td><?php echo $poste['Poste']['salaire'] + 50; ?></td>
                 </tr>
             </tbody>
         </table>

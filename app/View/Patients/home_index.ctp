@@ -94,7 +94,7 @@ jQuery().ready(function (){
             $("#alertMedoc").show();
         } else{
             $("#alertMedoc").hide();
-            $("#certificat").append("<p id='medic' style='font-size: 20px;margin-top: 10px;text-align: left;padding-left: 103px;' data-id='" + mid + "'>" + medoc + "&nbsp;&nbsp;&nbsp;" + pos + "&nbsp;&nbsp;&nbsp;pendant " + duree + " jours <a href='#' id='medocRemove'><i class='fa fa-times'></i></a></p>");
+            $("#certificat").append("<p id='medic' style='font-size: 20px;margin-top: 10px;text-align: left;padding-left: 103px;' data-id='" + mid + "'>" + medoc + "&nbsp;&nbsp;&nbsp;" + pos + "&nbsp;&nbsp;&nbsp;pendant " + duree + " jours </p>");
             dataMedoc.push({"medicament_id": mid, "posologie": pos, "duree": duree});
             $("#submitMedoc").removeAttr("disabled");
             $('#certificat').on('click', '#medocRemove', function (e) {

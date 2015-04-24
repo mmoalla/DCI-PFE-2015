@@ -175,9 +175,7 @@ class PagesController extends AppController {
             'fields' => array('montant', 'created'),
             'conditions' => array('aggregate' => array(
                 array('$group' => array(
-                    //'_id' => null,
                     '_id' => array('year' => array('$year' => '$created'), 'month' => array('$month' => '$created'), 'day' => array('$dayOfMonth' => '$created')),
-                    //'date' => array('$push' => '$created' ),
                     'montant' => array('$sum' => '$montant')
                 ))
             ))

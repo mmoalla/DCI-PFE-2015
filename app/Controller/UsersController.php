@@ -12,7 +12,7 @@ class UsersController extends AppController {
 
     public function admin_index() {
         if ($this->Session->read('group.Group.name') === "administration") {
-            CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la liste des employés");
+            CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la liste des employés.");
         }
         //tout les utilisateurs limité a 1 enregistrement
         $users = $this->User->find("all");
@@ -34,19 +34,18 @@ class UsersController extends AppController {
     }
 
     public function admin_add() {
-        if ($this->request->is('ajax')) {
-            //init Var
-            $message = '';
-            $data = $this->request->data;
-            $this->User->Behaviors->attach('mongodb.SqlCompatible');
-            if ($this->User->save($data)) {
-                CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté un nouvel employé");
-                $message = 'success';
+        if ($this->request->is('post')) {
+            $this->User->set($this->request->data);
+            $this->User->create();
+            if ($this->User->save($this->request->data)) {
+                //CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté une nouvelle chambre.");
+                $this->Session->setFlash("La user a été enregistrée", 'notif', array('type' => 'success'));
             } else {
-                $message = 'error';
+                $this->Session->setFlash("Une erreur s'est produite. Réesayer", 'notif', array('type' => 'error'));
             }
         }
-        $this->set(compact('message'));
+        $this->redirect($this->referer());
+        die();
     }
 
     /**
@@ -56,27 +55,24 @@ class UsersController extends AppController {
     public function admin_edit($id = null) {
         if ($this->request->is('put')) {
             if (!empty($this->request->data)) {
+                $this->User->Behaviors->attach('mongodb.SqlCompatible');
                 if ($this->User->save($this->request->data)) {
-                    CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
-                    $message = 'Saved';
+                    
+                    CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom'] . '.');
                     $this->Session->setFlash(__('Employé modifié'), 'notif', array('type' => 'success'));
-                    $this->redirect("http://localhost/DCI/admin/grh");
+                    $this->redirect(array('controller' => 'users', 'action' => 'admin_index'));
                 } else {
-                    $message = 'Error';
                     $this->Session->setFlash(__('Echec de l\'opération'), 'notif', array('type' => 'error'));
                 }
-                $this->set(array(
-                    'message' => $message,
-                    '_serialize' => array('message')
-                ));
             }
         } else {
             $this->User->id = $id;
             $this->request->data = $this->User->read();
+            $checkVal = $this->User->read(array('status', 'titulaire'));
             $services = $this->Service->find('list');
             $groups = $this->Group->find('list');
             $postes = $this->Poste->find('list');
-            $this->set(compact('services', 'groups', 'postes'));
+            $this->set(compact('services', 'groups', 'postes', 'checkVal'));
         }
     }
 
@@ -179,9 +175,9 @@ class UsersController extends AppController {
         if ($this->request->is('post')) {
             if ($this->Auth->login()) {
                 $prefix = $this->isAuthorized(current($this->request->data));
+                $this->DCI_Session->save(array('user_id' => $this->Auth->user('_id')));
                 $this->Session->write('prefix', $prefix);
                 $this->Session->write('group', $this->grp);
-                //$this->DCI_Session->save(array('user_id' => $this->Auth->user('_id')));
                 if ($this->Session->read('group.Group.name') === "administration") {
                     CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " s'est connecté.");
                 } elseif ($this->Session->read('group.Group.name') === "technique") {
@@ -209,10 +205,9 @@ class UsersController extends AppController {
         } elseif ($this->Session->read('group.Group.name') === "bureau admission") {
             CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " s'est déconnecté.");
         }
-        $id = $this->Auth->user('_id');
-        //$session = $this->DCI_Session->find('first', array('conditions' => array('DCI_Session.user_id' => $id)));
-        if (!empty($id)) {
-            //$this->DCI_Session->delete($session['DCI_Session']['_id']);
+        $session = $this->DCI_Session->find('first', array('conditions' => array('DCI_Session.user_id' => $this->Auth->user('_id'))));
+        if (!empty($session)) {
+            $this->DCI_Session->delete($session['DCI_Session']['_id']);
         }
         $this->Auth->logout();
         $this->Session->destroy();

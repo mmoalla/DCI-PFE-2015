@@ -13,6 +13,7 @@
         <table class="table table-striped table-hover table-bordered table-responsive" >
             <thead>
                 <tr>
+                    <th>Nom d'utilisateur</th>
                     <th>Nom</th>
                     <th>Prénom</th>
                     <th>Téléphone</th>
@@ -23,11 +24,12 @@
             </thead>
             <tbody>
                 <tr ng-repeat="usr in users | filter: name" ng-if="usr.User.prenom !== 'Administrateur'">
+                    <td>{{usr.User.username}}</td>
                     <td>{{usr.User.nom}}</td>
                     <td>{{usr.User.prenom}}</td>
                     <td>{{usr.User.phone}}</td>
-                    <td style="width: 10%;"><span class="label label-info" ng-if="usr.User.status === 'true'">Disponible</span><span class="label label-danger" ng-if="usr.User.status === 'false'">Non disponible</span></td>
-                    <td style="width: 10%;"><span class="label label-info" ng-if="usr.User.titulaire === 'true'">Titulaire</span><span class="label label-danger" ng-if="usr.User.titulaire === 'false'">&Agrave; l'essaie</span></td>
+                    <td style="width: 10%;"><span class="label label-info" ng-if="usr.User.status === '1'">Disponible</span><span class="label label-danger" ng-if="usr.User.status === '0'">Non disponible</span></td>
+                    <td style="width: 10%;"><span class="label label-info" ng-if="usr.User.titulaire === '1'">Titulaire</span><span class="label label-danger" ng-if="usr.User.titulaire === '0'">&Agrave; l'essaie</span></td>
                     <td style="width: 12%;">
                         <a href="http://localhost/DCI/admin/users/view/{{usr.User._id}}"><i class="btn btn-default btn-xs fa fa-list-alt" style="font-size: 20px;"></i></a>
                         <a href="http://localhost/DCI/admin/users/edit/{{usr.User._id}}"><i class="btn btn-warning btn-xs fa fa-pencil" style="font-size: 20px;"></i></a>
@@ -83,8 +85,8 @@
                         <?php echo $this->Form->input('User.phone', array('class' => 'form-control', 'id' => 'phone', 'style' => 'padding: 0 0 0 10px;', 'required' => true)); ?>
                     </div>
                     <div class="form-group">
-                        <label for="email" class="control-label">Email</label>
-                        <?php echo $this->Form->input('User.email', array('class' => 'form-control', 'id' => 'email', 'style' => 'padding: 0 0 0 10px;')); ?>
+                        <label for="email" class="control-label">Email&nbsp;&ast;</label>
+                        <?php echo $this->Form->input('User.email', array('class' => 'form-control', 'id' => 'email', 'style' => 'padding: 0 0 0 10px;', 'required' => true, 'title' => 'Vous devez saisir un email valide')); ?>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -137,40 +139,6 @@
 <?php echo $this->Html->script('select2/select2.min', array('inline' => false)); ?>
 <?php $this->Html->scriptStart(array('inline' => false)); ?>
     $("#service_id").select2();
-    $('#submit').click(function (e) {
-        e.preventDefault();
-        var data = {
-                "User": {
-                    "username": $('#username').val(),
-                    "password": $('#password').val(),
-                    "group_id": $('#UserGroupId').val(),
-                    "nom": $('#nom').val(),
-                    "prenom": $('#prenom').val(),
-                    "phone": $('#phone').val(),
-                    "email": $('#email').val(),
-                    "birthdate": $('#birthdate').val(),
-                    "adresse": $('#adresse').val(),
-                    "sexe": $('#sexe').val(),
-                    "formation": $('#formation').val(),
-                    "status": $('#status').prop('checked'),
-                    "titulaire": $('#titulaire').prop('checked'),
-                    "service_id": $('#service_id').val(),
-                    "poste_id": $('#poste_id').val()
-                }
-            };
-            console.log(data);
-        $.ajax({
-            url: '<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'add', 'admin' => true), true); ?>',
-            type: 'POST',
-            data: data,
-            success: function (response) {
-                if (response) {
-                    $("#myModal").fadeOut('slow');
-                    window.location.href = "http://localhost/DCI/admin/grh";
-                }
-            }
-        });
-    });
     $('#birthdate').pickadate({
         monthsShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Jui', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
         clear: false,

@@ -19,7 +19,7 @@ class AppController extends Controller {
     public $grp = array();
     public $components = array(
         'RequestHandler',
-        'DebugKit.Toolbar',
+        //'DebugKit.Toolbar',
         'Session',
         'Auth' => array(
             'authorize' => array('Controller'),

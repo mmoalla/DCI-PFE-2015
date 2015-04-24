@@ -10,3 +10,13 @@ Stack Trace:
 #3 C:\wamp\www\DCI\lib\Cake\Routing\Dispatcher.php(167): Dispatcher->_invoke(Object(PagesController), Object(CakeRequest))
 #4 C:\wamp\www\DCI\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
 #5 {main}
+2015-04-24 19:06:51 Error: Fatal Error (4): syntax error, unexpected 'elseif' (T_ELSEIF) in [C:\wamp\www\DCI\app\View\Pages\admin_home.ctp, line 80]
+2015-04-24 19:06:51 Error: [FatalErrorException] syntax error, unexpected 'elseif' (T_ELSEIF)
+Request URL: /DCI/admin
+Stack Trace:
+#0 C:\wamp\www\DCI\lib\Cake\Error\ErrorHandler.php(203): ErrorHandler::handleFatalError(4, 'syntax error, u...', 'C:\\wamp\\www\\DCI...', 80)
+#1 [internal function]: ErrorHandler::handleError(4, 'syntax error, u...', 'C:\\wamp\\www\\DCI...', 80, Array)
+#2 C:\wamp\www\DCI\lib\Cake\Core\App.php(931): call_user_func('ErrorHandler::h...', 4, 'syntax error, u...', 'C:\\wamp\\www\\DCI...', 80, Array)
+#3 C:\wamp\www\DCI\lib\Cake\Core\App.php(904): App::_checkFatalError()
+#4 [internal function]: App::shutdown()
+#5 {main}

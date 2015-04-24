@@ -80,14 +80,14 @@ echo $this->Html->docType('html5');
         }
         appDci.controller('ListConnecterController', ListConnecterController);
         function ListConnecterController($scope, $http) {
-            /*setInterval(function(){
+            setInterval(function(){
                 $http.get("http://localhost/DCI/admin/users/list_connecter.json").success(function (response) {
-                    $.each(response.dciSession,function(i,v){
+                    /*$.each(response.dciSession,function(i,v){
                         response.dciSession[i].User.time_login = moment(response.dciSession[i].User.time_login).fromNow(); 
-                    });
+                    });*/
                     $scope.connecter = response.dciSession;   
                 });
-            }, 3000);*/
+            }, 3000);
         }
         <?php echo $this->Html->scriptEnd(); ?>
     </body>
