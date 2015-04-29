@@ -25,7 +25,7 @@
                             <input type="hidden" value="{{pres.User._id}}" id="userID" />   
                             <input type="checkbox" id="presence" name="data[Presence][state]" ng-if="!pres.Presence.Presence"/>
                             <input type="checkbox" id="presence" name="data[Presence][state]" ng-if="pres.Presence.Presence && pres.Presence.Presence.created !== today"/>
-                            <i class="fa fa-check" ng-if="pres.Presence.Presence && pres.Presence.Presence.state === 'true' && pres.Presence.Presence.created === today"></i>
+                            <i class="fa fa-check" ng-if="pres.Presence.Presence && (pres.Presence.Presence.state === 'true' || pres.Presence.Presence.state === 'false') && pres.Presence.Presence.created === today"></i>
                         </form>
                     </td>
                 </tr>

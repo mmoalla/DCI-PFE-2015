@@ -29,6 +29,14 @@ class Facture extends AppModel {
         'patient_id' => array('type' => 'string'),
         'created' => array('type' => 'datetime')
     );
+    public function beforeSave($options = array()) {
+        parent::beforeSave($options);
+        if (!empty($this->data[$this->alias]['montant'])) {
+            //convertir un string en float 
+            $this->data[$this->alias]['montant'] = floatval($this->data[$this->alias]['montant']);
+        }
+        return true;
+    }
     public $validate = array(
         'numero' => array(
             'rule' => 'isUnique',

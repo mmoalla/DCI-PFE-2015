@@ -72,8 +72,8 @@ Configure::write('Dispatcher.filters', array(
  * Configures default file logging options
  */
 App::uses('CakeLog', 'Log');
-//CakeLog::config('historique_dci', array(
-//    'engine' => 'File',
-//    'types' => array('info'),
-//    'file' => 'historique_dci',
-//));
+CakeLog::config('historique_dci', array(
+    'engine' => 'File',
+    'types' => array('info'),
+    'file' => 'historique_dci',
+));
