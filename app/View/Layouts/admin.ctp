@@ -61,6 +61,7 @@ echo $this->Html->docType('html5');
         echo $this->Html->script('browser-update');
         echo $this->Html->script('moment/moment.min'); 
         echo $this->Html->script('moment/fr');
+        echo $this->Html->script('moment/moment-timezone');
         echo $this->fetch('script');
         ?>
         <?php echo $this->Html->scriptStart(); ?>
@@ -82,12 +83,19 @@ echo $this->Html->docType('html5');
         function ListConnecterController($scope, $http) {
             setInterval(function(){
                 $http.get("http://localhost/DCI/admin/users/list_connecter.json").success(function (response) {
-                    /*$.each(response.dciSession,function(i,v){
-                        response.dciSession[i].User.time_login = moment(response.dciSession[i].User.time_login).fromNow(); 
-                    });*/
                     $scope.connecter = response.dciSession;   
                 });
             }, 3000);
+        }
+        appDci.controller('HitoriquePresenceController', HitoriquePresenceController);
+        function HitoriquePresenceController($scope, $http) {
+            $http.get("http://localhost/DCI/admin/pages/hist_presence.json").success(function (response) {
+                $.each(response,function(i,v){
+                    response[i].Presence.created = moment(response[i].Presence.created).format('dddd DD MMMM YYYY'); 
+                });
+                $scope.auj = new Date().toJSON().slice(0, 10);
+                $scope.histpres = response;   
+            });
         }
         <?php echo $this->Html->scriptEnd(); ?>
     </body>

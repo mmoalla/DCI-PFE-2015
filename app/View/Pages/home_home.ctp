@@ -4,6 +4,7 @@
         <div class="container-fluid">
             <div class="page-header" style="margin: 0;margin-bottom: -30px;">
                 <h1>Planning Journalier</h1>
+                <!--                <a href="#" class="btn btn-primary btn-sm" style="position: absolute; right: 15px;top: 95px;" id="detailconsult">Plus de détail</a>-->
             </div><hr class="dci-hr">
             <div style="margin-top: 60px;">
                 <?php if (!empty($rdvs)): ?>
@@ -18,22 +19,23 @@
                                     <i class="fa fa-calendar" style="top: 3px;left: 1px;"></i>
                                 </div>
                                 <div class="dci-timeline-body">
-                                    <?php if (!empty($rdv['detail'])): ?>
-                                        <h2 style="border: 0;"><?php echo $rdv['motif'] ?><a href="#" class="btn btn-primary btn-xs" style="position: absolute; right: 10px;" id="detailconsult">Plus de détail</a></h2>
-                                        <div class="dci-timeline-content" style="display: none;border-top: 1px solid rgba(255,255,255,0.3);padding-top: 5px;">
-                                            <p><span style="font-size: 20px;font-weight: bold;">Détail :</span><br><?php echo $rdv['detail']; ?></p>
-                                            <?php foreach ($pts as $pt): ?>
-                                                <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">Patient : </span> <?php echo $pt['prenom'] . ' ' . $pt['nom']; ?></p>
-                                            <?php endforeach; ?>
-                                            <?php foreach ($chbs as $chb): ?>
-                                                <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">N° Chambre : </span> <?php echo $chb['numero']; ?></p>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    <?php else: ?>
-                                        <h2 style="padding-bottom: 0;border-bottom: 0;">
-                                            <?php echo $rdv['motif'] ?>
-                                        </h2>
-                                    <?php endif; ?>
+                                    <h2 style="border: 0;"><?php echo $rdv['motif'] ?></h2>
+                                    <div class="dci-timeline-content" style="display: block;border-top: 1px solid rgba(255,255,255,0.3);padding-top: 5px;">
+                                        <p>
+                                            <span style="font-size: 20px;font-weight: bold;">Détail :</span><br>
+                                            <?php if (!empty($rdv['detail'])): ?>
+                                                <?php echo $rdv['detail']; ?>
+                                            <?php else : ?>
+                                                <span>Pas de détail</span>
+                                            <?php endif; ?>
+                                        </p>
+                                        <?php foreach ($pts as $pt): ?>
+                                            <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">Patient : </span> <?php echo $pt['prenom'] . ' ' . $pt['nom']; ?></p>
+                                        <?php endforeach; ?>
+                                        <?php foreach ($chbs as $chb): ?>
+                                            <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">N° Chambre : </span> <?php echo $chb['numero']; ?></p>
+                                        <?php endforeach; ?>
+                                    </div>
                                 </div>
                             </li>
                         <?php endforeach; ?>
@@ -164,13 +166,13 @@
                         </div>
                         <div class="form-group">
                             <label for="taille" class="control-label">Taille</label>
-                            <?php echo $this->Form->input('Patient.taille', array('class' => 'form-control', 'id' => 'taille', 'ng-model' => 'taille', 'autocomplete' => "off", 'placeholder' => 'ex: 1.72')); ?>
+                            <?php echo $this->Form->input('Patient.taille', array('class' => 'form-control', 'id' => 'taille', 'ng-model' => 'taille', 'type' => 'text', 'autocomplete' => "off", 'placeholder' => 'ex: 1.72')); ?>
                         </div>
                     </div>
                     <div class="dci-form-column" id="dci-form-column" style="position: relative;top: -187px;">
                         <div class="form-group">
                             <label for="poids" class="control-label">Poids</label>
-                            <?php echo $this->Form->input('Patient.poids', array('class' => 'form-control', 'id' => 'poids', 'ng-model' => 'poids', 'autocomplete' => "off", 'placeholder' => 'ex: 65.5')) ?>
+                            <?php echo $this->Form->input('Patient.poids', array('class' => 'form-control', 'id' => 'poids', 'ng-model' => 'poids', 'type' => 'text', 'autocomplete' => "off", 'placeholder' => 'ex: 65.5')) ?>
                         </div>
                         <div class="form-group">
                             <label for="blood" class="control-label">Groupe Sanguin</label>
@@ -179,9 +181,9 @@
                         </div>
                         <div class="form-group">
                             <label for="numss" class="control-label">N° Sécu. Soc.</label>
-                            <?php echo $this->Form->input('Patient.numss', array('class' => 'form-control', 'id' => 'numss', 'type' => 'text', 'ng-model' => 'numss', 'maxlength' => '10', 'autocomplete' => "off")); ?>
+                            <?php echo $this->Form->input('Patient.numss', array('class' => 'form-control', 'id' => 'numss', 'type' => 'text', 'ng-model' => 'numss', 'maxlength' => '10', 'autocomplete' => "off", 'placeholder' => 'Resigner les 10 chiffres')); ?>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group" id="pt-avatar">
                             <label for="avatar" class="control-label" id="lblavatar">Image du patient (jpg/png)</label>
                             <div id="avatar-addon" class="input-group-addon" style="width: auto;position: absolute;border-radius: 3px 0 0 3px;padding: 13px;"><i class="fa fa-picture-o"></i></div>
                             <?php echo $this->Form->input('Patient.avatar_file', array('class' => 'form-control', 'id' => 'avatar', 'type' => 'file', 'style' => 'padding-left:50px;')); ?>
@@ -221,7 +223,7 @@
                     </div>
                     <div class="dci-form-column" style="position: absolute;">
                         <div class="form-group">
-                            <label for="user_id" class="control-label">Docteur / Infirmier</label>
+                            <label for="user_id" class="control-label">Docteur</label>
                             <div class="input-group-addon" style="width: auto;position: absolute;border-radius: 3px 0 0 3px;padding: 13px;"><i class="fa fa-user-md"></i></div>
                             <?php echo $this->Form->input('Consultation.user_id', array('class' => 'form-control', 'id' => 'user_id', 'empty' => 'Choisissez le docteur', 'ng-model' => 'user_id', 'style' => 'padding-left:50px;')); ?>
                         </div>
@@ -271,11 +273,11 @@
                             </div>
                             <div class="form-group">
                                 <label for="expriration" class="control-label">Expiration</label>
-                                <?php echo $this->Form->input('Facture.expiration', array('class' => 'form-control datepicker', 'id' => 'expiration', 'type' => 'text', 'style' => 'cursor:text;background: #fff;', 'ng-model' => 'expiration')); ?>
+                                <?php echo $this->Form->input('Facture.expiration', array('class' => 'form-control datepickerexp carte-banque', 'id' => 'expiration', 'type' => 'text', 'style' => 'cursor:text;background: #fff;', 'ng-model' => 'expiration')); ?>
                             </div>
                             <div class="form-group">
                                 <label for="cryptogramme" class="control-label">Cryptogramme</label>
-                                <?php echo $this->Form->input('Facture.cryptogramme', array('class' => 'form-control', 'id' => 'cryptogramme', 'type' => 'text', 'placeholder' => 'Resigner les 3 chiffres', 'ng-model' => 'cryptogramme')); ?>
+                                <?php echo $this->Form->input('Facture.cryptogramme', array('class' => 'form-control carte-banque', 'id' => 'cryptogramme', 'type' => 'text', 'placeholder' => 'Resigner les 3 chiffres', 'ng-model' => 'cryptogramme')); ?>
                             </div>
                         </div>
                         <div class="cheque" style="display: none;">

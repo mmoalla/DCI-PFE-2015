@@ -1,9 +1,14 @@
 <div class="row">
     <div class="container" ng-controller="PresenceController">
         <h1><i class="fa fa-check"></i> Gestion de la présence</h1><hr>
-        <div class="form-group" style="margin-bottom: 20px;">
-            <div class="input-group-addon" style="width: auto;position: absolute;border-radius: 3px 0 0 3px;padding: 12px 15px;"><i class="fa fa-filter" style="font-size: 16px;"></i></div>
-            <input id="name" type="text" class="form-control" ng-model="userName" style="padding-left: 50px;" placeholder="Rechercher les docteurs par leur nom ou prénom" autocomplete="off" />
+        <div class="col-lg-10">
+            <div class="form-group" style="margin-bottom: 20px;">
+                <div class="input-group-addon" style="width: auto;position: absolute;border-radius: 3px 0 0 3px;padding: 12px 15px;"><i class="fa fa-filter" style="font-size: 16px;"></i></div>
+                <input id="name" type="text" class="form-control" ng-model="userName" style="padding-left: 50px;" placeholder="Rechercher les docteurs par leur nom ou prénom" autocomplete="off" />
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <a href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => 'admin_hist_presence')); ?>" class="btn btn-default">Historique présence</a>
         </div>
         <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
             <thead>
@@ -43,6 +48,7 @@ $(document).ready(function (){
             type : 'POST',
             data: data,
             success : function(response){
+            console.log(response);
                 if (response) {
                     window.location.href = "http://localhost/DCI/admin/pages/presence";
                 }

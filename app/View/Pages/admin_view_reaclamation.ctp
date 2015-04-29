@@ -21,8 +21,8 @@
                 type : 'PUT',
                 success : function(result){
                     $(this).parent().parent().fadeOut();
-                    if(result == 'success'){
-                        $("#resolue").replaceWith("<span class='label label-info'>Résolue</span>");
+                    if(result === 'success'){
+                        $("#resolue").replaceWith("<span class='label label-info'>Résolu</span>");
                         window.location.href = "<?php echo $this->Html->url('http://localhost/DCI/admin'); ?>";
                     }
                 }

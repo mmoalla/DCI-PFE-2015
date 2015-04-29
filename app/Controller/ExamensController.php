@@ -11,6 +11,7 @@ App::uses('AppController', 'Controller');
 class ExamensController extends AppController {
 
     public function home_index() {
+        //$examens = $this->Examen->find('all');
         $examens = $this->Examen->find('all');
         $this->set(compact('examens'));
     }

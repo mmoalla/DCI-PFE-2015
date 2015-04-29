@@ -6,10 +6,10 @@ jQuery().ready(function () {
     });
 
     /******************* DETAIL CONSULTATION *******************/
-    $("#detailconsult").click(function (e) {
-        e.preventDefault();
-        $(".dci-timeline-content").toggle('slow');
-    });
+//    $("#detailconsult").click(function (e) {
+//        e.preventDefault();
+//        $(".dci-timeline-content").toggle('slow');
+//    });
     /******************* TOOTLTIP *******************/
     $("#tootltip").tooltip();
     /******************* ALERT *******************/
@@ -42,7 +42,7 @@ jQuery().ready(function () {
         if ($("#typepaiement").find(':selected').text() === "Carte bancaire") {
             $('.carte-banque').show();
             $('.cheque').hide();
-        } else if ($("#typepaiement").find(':selected').text() === "Espèse") {
+        } else if ($("#typepaiement").find(':selected').text() === "Espèce") {
             $('.carte-banque').hide();
             $('.cheque').hide();
         } else if ($("#typepaiement").find(':selected').text() === "Chèque") {
@@ -224,6 +224,20 @@ jQuery().ready(function () {
         min: new Date('yyy-mm-dd'),
         max: [2016, 12, 31]
     });
+    $('.datepickerexp').pickadate({
+        monthsShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Jui', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
+        clear: false,
+        close: false,
+        today: false,
+        labelMonthNext: 'Mois suivant',
+        labelMonthPrev: 'Mois précédent',
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd',
+        selectYears: true,
+        selectMonths: true,
+        min: [2015, 12, 31],
+        max: [2018, 12, 31]
+    });
     $('.dp-birthdate').pickadate({
         monthsShort: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jui', 'Jui', 'Aou', 'Sep', 'Oct', 'Nov', 'Déc'],
         clear: false,
@@ -283,7 +297,8 @@ jQuery().ready(function () {
             $("#email").attr('readonly', 'readonly').val(data.Patient.email);
             $("#age").attr('readonly', 'readonly').val(data.Patient.age);
             $('#avatar-addon').remove();
-            $("#avatar").replaceWith("<img style='max-width: 100%;height: 225px;display: block;border-radius: 3px;' class='thumbnail' src='/DCI/img/avatars/" + data.Patient.avatar + "' />");
+            $("#pt-avatar").append("<img style='max-width: 100%;height: 225px;display: block;border-radius: 3px;' class='thumbnail' src='/DCI/img/avatars/" + data.Patient.avatar + "' />");
+            $("#avatar").attr('readonly', 'readonly').hide();
             $("#dci-form-column").css('top', '-218px').css('margin-bottom', '-240px');
             $("#taille").attr('readonly', 'readonly').val(data.Patient.taille);
             $("#poids").attr('readonly', 'readonly').val(data.Patient.poids);
@@ -301,7 +316,6 @@ jQuery().ready(function () {
     $("#ressearch").on('click', '#showP', function () {
         var idPatient = $(this).parent('li').attr('data-value');
         $.get("http://localhost/DCI/patients/patient_folder/" + idPatient, function (response) {
-            //console.log(response);
             $("#p-pt").html(response);
         });
     });

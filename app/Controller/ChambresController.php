@@ -15,7 +15,7 @@ class ChambresController extends AppController {
             CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la liste des chambres.");
         }
         $chambres = $this->Chambre->find('all', array(
-            'order' => array('Chambre.etage' => 'DESC')
+            'order' => array('Chambre.numero' => 'ASC')
         ));
         $this->set('chambres', $chambres);
     }

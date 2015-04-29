@@ -98,7 +98,7 @@
             success: function (resp) {
                 var items = '';
                 $.each(resp, function (index, value) {
-                items = items + '<li><a class="reclam" href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => 'view_reaclamation')); ?>/' + value.Reclamation._id + '"><span class="reclamnom">' + value.Reclamation.nom + ' </span><span class="label label-info" style="font-size: 12px;margin-left: 5px;">' + moment(value.Reclamation.created).fromNow() + '</span></a></li>';
+                    items = items + '<li><a class="reclam" href="<?php echo $this->Html->url(array('controller' => 'pages', 'action' => 'view_reaclamation')); ?>/' + value.Reclamation._id + '"><span class="reclamnom">' + value.Reclamation.nom + ' </span><span class="label label-info" style="font-size: 12px;margin-left: 5px;">' + moment(value.Reclamation.created).fromNow() + '</span></a></li>';
                 });
                 $("#notif-menu").html(items);
             }

@@ -5,7 +5,6 @@
     <li role="presentation"><a href="#cons" id="rdv-tab" aria-controls="infordv" role="tab" data-toggle="tab"  aria-expanded="true">Consultation</a></li>
     <?php if ($this->Session->read('group.Group.name') == "docteur"): ?>
         <li role="presentation"><a href="#medoc" id="medoc-tab" aria-controls="infordv" role="tab" data-toggle="tab"  aria-expanded="true">Médicaments</a></li>
-        <li role="presentation"><a href="#ante" id="ante-tab" aria-controls="infordv" role="tab" data-toggle="tab"  aria-expanded="true">Antécédants médicaux</a></li>
         <li role="presentation"><a href="#pro" id="pro-tab" aria-controls="infordv" role="tab" data-toggle="tab"  aria-expanded="true">Profilage</a></li>
     <?php endif; ?>
     <?php if ($this->Session->read('group.Group.name') == "bureau admission"): ?>
@@ -54,21 +53,51 @@ width: 150px;')); ?>
     </div>
     <!------------------------------------------- Tab Consultation ------------------------------------------->
     <div role="tabpanel" class="tab-pane col-lg-12" id="cons" style="font-size: 20px;">
-        <?php if (!empty($consults) || !empty($consultes)): ?>
-            <div role="tabpanel" class="tab-pane col-lg-12 well" id="cons" style="font-size: 20px;">
-                <?php if ($this->Session->read('group.Group.name') === "docteur"): ?>
-                    <?php foreach ($consults as $consult): ?>
+        <div role="tabpanel" class="tab-pane col-lg-12" id="cons" style="font-size: 20px;">
+            <?php if ($this->Session->read('group.Group.name') === "docteur"): ?>
+                <?php foreach ($consults as $consult): ?>
+                    <?php if (!empty($consults)): ?>
+                        <div class="col-lg-12 well">
+                            <h1>Motif de consulattion : <?php echo $consult['Consultation']['motif']; ?></h1>
+                            <div class="col-lg-6">
+                                <p style="text-align: justify;">
+                                    <span>Détails de consulattion :
+                                        <?php
+                                        if (!empty($consult['Consultation']['detail'])):
+                                            echo '<br>' . $consult['Consultation']['detail'];
+                                        else:
+                                            echo 'Rien';
+                                        endif;
+                                        ?>
+                                    </span>
+                                </p>
+                                <p>Date d'entrée : <?php echo $consult['Consultation']['datedebut']; ?></p>
+                                <p>Date de sortie : <?php echo $consult['Consultation']['datefin']; ?></p>
+                            </div>
+                            <div class="col-lg-6">
+                                <p>Heure de consultation : <?php echo $consult['Consultation']['heure']; ?></p>
+                                <?php foreach ($doctors as $doctor): ?>
+                                    <p>Médecin traitant : <?php echo $doctor['User']['prenom'] . ' ' . $doctor['User']['nom']; ?></p>
+                                <?php endforeach; ?>
+                                <?php foreach ($chbres as $chambre): ?>
+                                    <?php if (!empty($chambre)): ?>
+                                        <p>N° de chambre : <?php echo $chambre['Chambre']['numero']; ?></p>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    <?php else: ?>
+                        <div class="alert alert-info" style="text-align: center;font-size: 20px;font-weight: bold;"><i class="fa fa-info-circle"></i> Aucune consultation à venir </div>
+                    <?php endif; ?>
+                <?php endforeach; ?> 
+            <?php elseif ($this->Session->read('group.Group.name') === "bureau admission"): ?>
+                <?php foreach ($consultes as $consult): ?>
+                    <div class="well col-lg-12">
                         <h1>Motif de consulattion : <?php echo $consult['Consultation']['motif']; ?></h1>
                         <div class="col-lg-6">
                             <p style="text-align: justify;">
                                 <span>Détails de consulattion :
-                                    <?php
-                                    if (!empty($consult['Consultation']['detail'])):
-                                        echo '<br>' . $consult['detail'];
-                                    else:
-                                        echo 'Rien';
-                                    endif;
-                                    ?>
+                                    <br><p style="margin-left: 50px;"><?php echo $consult['Consultation']['detail']; ?></p>
                                 </span>
                             </p>
                             <p>Date d'entrée : <?php echo $consult['Consultation']['datedebut']; ?></p>
@@ -85,42 +114,10 @@ width: 150px;')); ?>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </div>
-                    <?php endforeach; ?> 
-                <?php elseif ($this->Session->read('group.Group.name') === "bureau admission"): ?>
-                    <?php foreach ($consultes as $consult): ?>
-                        <h1>Motif de consulattion : <?php echo $consult['Consultation']['motif']; ?></h1>
-                        <div class="col-lg-6">
-                            <p style="text-align: justify;">
-                                <span>Détails de consulattion :
-                                    <?php
-                                    if (!empty($consult['Consultation']['detail'])):
-                                        echo '<br><p style="margin-left: 50px;">' . $consult['Consultation']['detail'] . '</p>';
-                                    else:
-                                        echo 'Rien';
-                                    endif;
-                                    ?>
-                                </span>
-                            </p>
-                            <p>Date d'entrée : <?php echo $consult['Consultation']['datedebut']; ?></p>
-                            <p>Date de sortie : <?php echo $consult['Consultation']['datefin']; ?></p>
-                        </div>
-                        <div class="col-lg-6">
-                            <p>Heure de consultation : <?php echo $consult['Consultation']['heure']; ?></p>
-                            <?php foreach ($doctors as $doctor): ?>
-                                <p>Médecin traitant : <?php echo $doctor['User']['prenom'] . ' ' . $doctor['User']['nom']; ?></p>
-                            <?php endforeach; ?>
-                            <?php foreach ($chbres as $chambre): ?>
-                                <?php if (!empty($chambre)): ?>
-                                    <p>N° de chambre : <?php echo $chambre['Chambre']['numero']; ?></p>
-                                <?php endif; ?>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endforeach; ?> 
-                <?php endif; ?>
-            </div>
-        <?php else: ?>
-            <div class="alert alert-info" style="text-align: center;font-size: 20px;font-weight: bold;"><i class="fa fa-info-circle"></i> Aucune consultation à venir </div>
-        <?php endif; ?>
+                    </div>
+                <?php endforeach; ?> 
+            <?php endif; ?>
+        </div>
     </div>
     <!------------------------------------------- Tab Médicament ------------------------------------------->
     <div role="tabpanel" class="tab-pane" id="medoc">
@@ -175,19 +172,6 @@ width: 150px;')); ?>
             </div>
         </div>
     </div>
-    <!------------------------------------------- Tab Antécédant ------------------------------------------->
-    <div role="tabpanel" class="tab-pane col-lg-12 well" id="ante" style="font-size: 20px;">
-        <?php foreach ($antecedants as $antecedant): ?>
-            <?php if (!empty($antecedant)): ?>
-                <div>
-                    <span><h1>Antécédant : <?php echo $antecedant['Consultation']['motif']; ?><span style="font-size: 20px;position: absolute;right: 50px;" class="label label-primary"><?php echo $antecedant['Consultation']['created']; ?></span></h1></span>
-
-                </div>
-            <?php else: ?>
-                <p>ok</p>
-            <?php endif; ?>
-        <?php endforeach; ?> 
-    </div>
     <!------------------------------------------- Tab Profilage ------------------------------------------->
     <div role="tabpanel" class="tab-pane col-lg-12" id="pro" style="font-size: 20px;">
         <div class="alert alert-danger" id="alertExamen" style="display: none;"><i class="fa fa-times-circle"></i> Vous devez remplir tout les champs</div>
@@ -217,17 +201,17 @@ width: 150px;')); ?>
         </div>
     </div>
     <!------------------------------------------- Tab Facture ------------------------------------------->
-    <?php foreach ($factures as $facture) : $facture = $facture['Facture']; ?>
-        <div role="tabpanel" class="tab-pane col-lg-12 well" id="fact" style="font-size: 20px;">
-            <div class="col-lg-6">
+    <?php if ($this->Session->read('group.Group.name') === "bureau admission"): ?>
+        <?php foreach ($factures as $facture) : $facture = $facture['Facture']; ?>
+            <div role="tabpanel" class="tab-pane col-lg-12 well" id="fact" style="font-size: 20px;">
                 <h1>Facture n° <?php echo $facture['numero']; ?></h1>
                 <p>Désignation : <?php echo $facture['designation']; ?></p>
                 <p>Montant : <?php echo $facture['montant']; ?> TND</p>
                 <p>Devise : <?php echo $facture['devise']; ?></p>
                 <p>Paiement : <?php echo $facture['typepaiement']; ?></p>
             </div>
-        </div>
-    <?php endforeach; ?>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </div>
 
 <!----------------------------- MODAL DE MODIFICATION -------------------------------->

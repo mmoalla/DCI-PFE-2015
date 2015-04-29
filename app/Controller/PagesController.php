@@ -36,12 +36,13 @@ class PagesController extends AppController {
         //liste des docteurs
         $users = $this->User->find('list', array(
             'fields' => array('User.prenom'),
-            'conditions' => array('User.group_id' => $grp['Group']['_id'])
+            'conditions' => array('User.group_id' => $grp['Group']['_id'], 'User.status' => '1')
         ));
         $this->set('users', $users);
         //liste des numero de chambres
         $chambres = $this->Chambre->find('list', array(
-            'fields' => 'Chambre.numero'
+            'fields' => array('Chambre.numero'),
+            'order' => array('Chambre.numero ASC')
         ));
         $this->set('chambres', $chambres);
 
@@ -180,8 +181,6 @@ class PagesController extends AppController {
                 ))
             ))
         ));
-
-        //$benefices = $this->Facture->query("db.factures.find([{'_id':1}])");
         $this->set(compact('benefices'));
     }
 
@@ -274,12 +273,26 @@ class PagesController extends AppController {
         endforeach;
         $this->set(compact('doc'));
     }
+    
+    public function admin_hist_presence(){
+        $presences = $this->Presence->find('all');
+        
+        foreach ($presences as $k => $pres):
+            $users = $this->User->find('first', array(
+            'fields' => array('nom', 'prenom'),
+            'conditions' => array('id' => $pres['Presence']['user_id'])
+        ));
+        $presences[$k]['User'] = $users;
+        endforeach;
+        
+        $this->set(compact('presences'));
+    }
 
     public function admin_add_presence() {
         if ($this->request->is('ajax')) {
             $this->user_id = $this->request->data['Presence']['user_id'];
             if ($this->Presence->save($this->request->data)) {
-                CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom']);
+                CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a fait la présence.");
                 echo json_encode($this->request->data);
                 $message = 'success';
             } else {

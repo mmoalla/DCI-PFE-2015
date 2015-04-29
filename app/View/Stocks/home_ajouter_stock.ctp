@@ -10,15 +10,16 @@
         <div ng-controller="MedicamentsController">
             <div class="form-group">
                 <label class="control-label">Medicament(code_pct)</label>
-                <select ng-model="code" id="code" class="form-control">
-                    <option ng-repeat="med in medocs">{{med.Medicament.code_pct}}</option>
+                <select select ng-model="code" id="code" class="form-control" required>
+                    <option value="">Selectionner un code PCT</option>
+                    <option ng-repeat="med in medocs" ng-model="code">{{med.Medicament.code_pct}}</option>
                 </select>
             </div>
             <div class="form-group">
                 <label class="control-label">Nom médicament</label>
                 <?php //echo $this->Form->input('_id'); ?>
-                <select class="form-control" name="data[Stock][medicament_id]">
-                    <option ng-repeat="med in medocs| filter: code" value="{{med.Medicament._id}}">{{med.Medicament.nom_commercial}}</option>
+                <select select class="form-control" ng-model="code" name="data[Stock][medicament_id]" required>
+                    <option ng-selected="code" ng-repeat="med in medocs| filter: code" value="{{med.Medicament._id}}">{{med.Medicament.nom_commercial}}</option>
                 </select>
             </div>
         </div>

@@ -168,7 +168,7 @@ jQuery().ready(function (){
                 var dataObject = {
                     "nom": data[i].Examen.nom,
                     "dosage": data[i].Examen.dosage,
-                    "date": data[i].Examen.date
+                    "date": data[i].Examen.created
                 };
                 cData.push(dataObject);
                 JSON.stringify(cData);
@@ -186,12 +186,11 @@ jQuery().ready(function (){
                         "position": "left"
                     }],
                     "graphs": [{
-                        "bullet": "square",
-                  	"labelText": "[[nom]]",
+                        "bullet": "round",
+			"labelText": "[[nom]]",
                         "valueField": "dosage",
-                  	"labelPosition": "right",
+			"labelPosition": "right",
                     }],
-                    "dataDateFormat": "YYYY-MM-DD",
                     "categoryField": "date",
                     "categoryAxis": {
                         "parseDates": true,

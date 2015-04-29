@@ -18,7 +18,7 @@ class Examen extends AppModel {
     var $mongoSchema = array(
         'nom' => array('type' => 'string'),
         'dosage' => array('type' => 'float'),
-        'date' => array('type' => 'date')
+        'created' => array('type' => 'datetime')
     );
     
     public function beforeSave($options = array()) {

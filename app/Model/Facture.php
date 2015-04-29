@@ -41,14 +41,4 @@ class Facture extends AppModel {
     );
     //many to one
     public $belongsTo = array('Patient');
-
-    public function beforeSave($options = array()) {
-        parent::beforeSave($options);
-        if (!empty($this->data[$this->alias]['montant'])) {
-            //convertir un string en float 
-            $this->data[$this->alias]['montant'] = floatval($this->data[$this->alias]['montant']);
-        }
-        return true;
-    }
-
 }

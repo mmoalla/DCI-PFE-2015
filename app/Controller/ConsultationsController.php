@@ -44,7 +44,7 @@ class ConsultationsController extends AppController {
             CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a affiché les détail de la consultation " . $detconsult['Consultation']['motif']);
         }
         if ($this->Session->read('group.Group.name') === "bureau admission") {
-            CakeLog::write('info',"Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a affiché les détail de la consultation " . $detconsult['Consultation']['motif']);
+            CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a affiché les détail de la consultation " . $detconsult['Consultation']['motif']);
         }
         $patient = $this->Patient->find('first', array(
             'fields' => array('nom', 'prenom'),

@@ -10,13 +10,17 @@
         <div class="form-group" style="width: 340px;">
             <label class="control-label">Code pct</label>
             <select ng-model="codePct" class="form-control">
-                <option ng-repeat="stk in stocks">{{stk.Medicament.code_pct}}</option>
+                <option value="">Selectionner le code PCT</option>
+                <option ng-repeat="stk in stocks" ng-model="codePct">{{stk.Medicament.code_pct}}</option>
             </select>
+        </div>
+<!--        <div class="form-group" style="width: 340px;">
             <label class="control-label">Nom médicament</label>
-            <select class="form-control">
+            <select class="form-control" disabled ng-model="codePct">
+                <option value="">Médicament du code PCT selectionné</option>
                 <option ng-selected="codePct" ng-repeat="stk in stocks | filter:codePct">{{stk.Medicament.nom_commercial}}</option>
             </select>
-        </div> 
+        </div> -->
     </div>
     <table id="listStock" class="table table-bordered table-condensed table-hover table-responsive table-striped" style="margin-top: 30px">
         <thead>
