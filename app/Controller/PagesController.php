@@ -66,13 +66,17 @@ class PagesController extends AppController {
         }
 
         if ($this->Session->read('group.Group.name') === 'docteur') {
+            date_default_timezone_set('Africa/Tunis');
             //récuperer tous les consultations du docteur
             CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté son planning journalier");
             $rdvs = $this->Consultation->find('all', array(
-                'conditions' => array('Consultation.user_id' => $this->Auth->user('_id')),
-                'order' => array('Consultation.date ASC', 'Consultation.heure ASC'),
-                'group' => 'Consultation.date'
+                'conditions' => array(
+                    'Consultation.user_id' => $this->Auth->user('_id'),
+                    'Consultation.datedebut' => date('Y-m-d')
+                ),
+                'order' => array('Consultation.datedebut ASC', 'Consultation.heure ASC'),
             ));
+            
             $this->set(compact('rdvs'));
             $pts = array();
             $chbs = array();

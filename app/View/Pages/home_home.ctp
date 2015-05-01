@@ -10,34 +10,34 @@
                 <?php if (!empty($rdvs)): ?>
                     <ul class="dci-timeline">
                         <?php foreach ($rdvs as $rdv): $rdv = $rdv['Consultation']; ?>
-                            <li>
-                                <div class="dci-timeline-time">
-                                    <span class="dci-date"><?php echo $rdv['datedebut']; ?></span>
-                                    <span class="dci-time"><?php echo $rdv['heure']; ?></span>
-                                </div>
-                                <div class="dci-timeline-icon">
-                                    <i class="fa fa-calendar" style="top: 3px;left: 1px;"></i>
-                                </div>
-                                <div class="dci-timeline-body">
-                                    <h2 style="border: 0;"><?php echo $rdv['motif'] ?></h2>
-                                    <div class="dci-timeline-content" style="display: block;border-top: 1px solid rgba(255,255,255,0.3);padding-top: 5px;">
-                                        <p>
-                                            <span style="font-size: 20px;font-weight: bold;">Détail :</span><br>
-                                            <?php if (!empty($rdv['detail'])): ?>
-                                                <?php echo $rdv['detail']; ?>
-                                            <?php else : ?>
-                                                <span>Pas de détail</span>
-                                            <?php endif; ?>
-                                        </p>
-                                        <?php foreach ($pts as $pt): ?>
-                                            <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">Patient : </span> <?php echo $pt['prenom'] . ' ' . $pt['nom']; ?></p>
-                                        <?php endforeach; ?>
-                                        <?php foreach ($chbs as $chb): ?>
-                                            <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">N° Chambre : </span> <?php echo $chb['numero']; ?></p>
-                                        <?php endforeach; ?>
+                                <li>
+                                    <div class="dci-timeline-time">
+                                        <span class="dci-date"><?php echo $rdv['datedebut']; ?></span>
+                                        <span class="dci-time"><?php echo $rdv['heure']; ?></span>
                                     </div>
-                                </div>
-                            </li>
+                                    <div class="dci-timeline-icon">
+                                        <i class="fa fa-calendar" style="top: 3px;left: 1px;"></i>
+                                    </div>
+                                    <div class="dci-timeline-body">
+                                        <h2 style="border: 0;"><?php echo $rdv['motif'] ?></h2>
+                                        <div class="dci-timeline-content" style="display: block;border-top: 1px solid rgba(255,255,255,0.3);padding-top: 5px;">
+                                            <p>
+                                                <span style="font-size: 20px;font-weight: bold;">Détail :</span><br>
+                                                <?php if (!empty($rdv['detail'])): ?>
+                                                    <?php echo $rdv['detail']; ?>
+                                                <?php else : ?>
+                                                    <span>Pas de détail</span>
+                                                <?php endif; ?>
+                                            </p>
+                                            <?php foreach ($pts as $pt): ?>
+                                                <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">Patient : </span> <?php echo $pt['prenom'] . ' ' . $pt['nom']; ?></p>
+                                            <?php endforeach; ?>
+                                            <?php foreach ($chbs as $chb): ?>
+                                                <p style="display: inline-block;width: 25%;"><span style="font-size: 20px;font-weight: bold;">N° Chambre : </span> <?php echo $chb['numero']; ?></p>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </li>
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
