@@ -13,14 +13,14 @@ class ConsultationsController extends AppController {
     public function home_index() {
         if ($this->Session->read('group.Group.name') === 'bureau admission') {
             //tous les condultations (bureau admission) dans le calenrier
-            CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le planning mensuel de l'hôpital");
+            CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le planning mensuel de l'hôpital.");
             $consultations = $this->Consultation->find('all');
             $this->set(compact('consultations'));
         }
 
         if ($this->Session->read('group.Group.name') == 'docteur') {
             //tous les condultation du docteur
-            CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté son planning mensuel");
+            CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté son planning mensuel.");
             $rdvs = $this->Consultation->find('all', array(
                 'conditions' => array('Consultation.user_id' => $this->Auth->user('_id'))
             ));
@@ -41,10 +41,10 @@ class ConsultationsController extends AppController {
         }
         $detconsult = $this->Consultation->findById($id);
         if ($this->Session->read('group.Group.name') === "docteur") {
-            CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a affiché les détail de la consultation " . $detconsult['Consultation']['motif']);
+            CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a affiché les détail de la consultation " . $detconsult['Consultation']['motif'] . ".");
         }
         if ($this->Session->read('group.Group.name') === "bureau admission") {
-            CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a affiché les détail de la consultation " . $detconsult['Consultation']['motif']);
+            CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a affiché les détail de la consultation " . $detconsult['Consultation']['motif'] . ".");
         }
         $patient = $this->Patient->find('first', array(
             'fields' => array('nom', 'prenom'),
@@ -87,7 +87,7 @@ class ConsultationsController extends AppController {
 
             //Save Facture
             if ($this->Facture->save($this->request->data['Facture'])) {
-                CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté un nouveau dossier patient");
+                CakeLog::write('info', "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté un nouveau dossier patient.");
                 $this->Consultation->save($this->request->data['Consultation']);
                 $extension = strtolower(pathinfo($this->request->data['Patient']['avatar_file']['name'], PATHINFO_EXTENSION));
                 $filename = strtolower(pathinfo($this->request->data['Patient']['avatar_file']['name'], PATHINFO_BASENAME));

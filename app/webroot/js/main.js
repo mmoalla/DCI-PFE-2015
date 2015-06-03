@@ -4,12 +4,6 @@ jQuery().ready(function () {
         var choix = $(this).val();
         $("#titulaire").val(choix);
     });
-
-    /******************* DETAIL CONSULTATION *******************/
-//    $("#detailconsult").click(function (e) {
-//        e.preventDefault();
-//        $(".dci-timeline-content").toggle('slow');
-//    });
     /******************* TOOTLTIP *******************/
     $("#tootltip").tooltip();
     /******************* ALERT *******************/

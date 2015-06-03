@@ -15,7 +15,7 @@ class PrescriptionsController extends AppController {
             $this->layout = false;
             $message = '';
             if ($this->Prescription->save($this->request->data)) {
-                CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a préscrit des médicaments");
+                CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a préscrit des médicaments.");
                 $message = 'success';
             } else {
                 $message = 'error';

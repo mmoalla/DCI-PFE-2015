@@ -22,14 +22,14 @@ class PatientsController extends AppController {
 
     public function home_index() {
         if ($this->Session->read('group.Group.name') === "bureau admission") {
-            CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la liste des employés");
+            CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la liste des employés.");
             $this->Paginator->settings = $this->paginate;
             $pts = $this->Paginator->paginate('Patient');
             $this->set('pts', $pts);
         }
 
         if ($this->Session->read('group.Group.name') === "docteur") {
-            CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la liste de ses employés");
+            CakeLog::write("info", "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la liste de ses employés.");
             $users = $this->User->find('first', array(
                 'fields' => array('User.id'),
                 'conditions' => array('User.id' => $this->Auth->user('_id'))
@@ -64,7 +64,7 @@ class PatientsController extends AppController {
         $patient = $this->Patient->find('first', array('conditions' => array('Patient.id' => $id)));
         $this->set(compact('patient'));
         if ($this->Session->read('group.Group.name') === "bureau admission") {
-            CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le dossier du patient " . $patient['Patient']['prenom'] . " " . $patient['Patient']['nom']. '.');
+            CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté le dossier du patient " . $patient['Patient']['prenom'] . " " . $patient['Patient']['nom']. ".");
             $consultes = $this->Consultation->find('all', array(
                 'conditions' => array('Consultation.patient_id' => $id),
                 'order' => array('Consultation._id' => 'DESC')
@@ -147,7 +147,7 @@ class PatientsController extends AppController {
                         move_uploaded_file($this->request->data['Patient']['avatar']['tmp_name'], IMAGES . 'avatars' . DS . $filename . '.' . $extension[1]);
                         $this->Patient->saveField('avatar', $filename . '.' . $extension[1]);
                     }
-                    CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié les informations du dossier du patient " . $this->request->data['Patient']['prenom'] . " " . $this->request->data['Patient']['nom']);
+                    CakeLog::write("info", "Le responsable des admissions " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié les informations du dossier du patient " . $this->request->data['Patient']['prenom'] . " " . $this->request->data['Patient']['nom'] . ".");
                     $this->Session->setFlash(__('Patient modifié'), 'notif', array('type' => 'success'));
                     $this->redirect($this->referer());
                 } else {

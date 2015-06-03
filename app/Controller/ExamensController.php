@@ -22,7 +22,7 @@ class ExamensController extends AppController {
             $message = '';
             $data = $this->request->data;
             if ($this->Examen->save($data)) {
-                CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " consulté les antécédants du patient");
+                CakeLog::write('info', "Le docteur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " consulté les antécédants du patient.");
                 $message = 'success';
             } else {
                 $message = 'error';

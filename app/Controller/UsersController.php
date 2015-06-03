@@ -38,7 +38,7 @@ class UsersController extends AppController {
             $this->User->set($this->request->data);
             $this->User->create();
             if ($this->User->save($this->request->data)) {
-                //CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté une nouvelle chambre.");
+                CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a ajouté un nouvel utilisateur.");
                 $this->Session->setFlash("La user a été enregistrée", 'notif', array('type' => 'success'));
             } else {
                 $this->Session->setFlash("Une erreur s'est produite. Réesayer", 'notif', array('type' => 'error'));
@@ -58,7 +58,7 @@ class UsersController extends AppController {
                 $this->User->Behaviors->attach('mongodb.SqlCompatible');
                 if ($this->User->save($this->request->data)) {
                     
-                    CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom'] . '.');
+                    CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié l'employé " . $this->request->data['User']['prenom'] . " " . $this->request->data['User']['nom'] . ".");
                     $this->Session->setFlash(__('Employé modifié'), 'notif', array('type' => 'success'));
                     $this->redirect(array('controller' => 'users', 'action' => 'admin_index'));
                 } else {
@@ -83,7 +83,7 @@ class UsersController extends AppController {
      */
     public function admin_view($id = null) {
         $user = $this->User->findById($id);
-        CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté les informations de l'emplyé " . $user['User']['prenom'] . " " . $user['User']['nom']);
+        CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté les informations de l'emplyé " . $user['User']['prenom'] . " " . $user['User']['nom'] . ".");
         $service = $this->Service->find('first', array(
             'conditions' => array('id' => $user['User']['service_id'])
         ));
@@ -111,7 +111,7 @@ class UsersController extends AppController {
             $this->Session->setFlash(__('L\'employé est introuvable', 'notif', array('type' => 'error')));
         }
         if ($this->User->delete()) {
-            CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a supprimé un employé");
+            CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a supprimé un employé.");
             $this->Session->setFlash(__('Employé supprimé'), 'notif', array('type' => 'success'));
             return $this->redirect(array('action' => 'admin_index'));
         }
@@ -125,7 +125,7 @@ class UsersController extends AppController {
      */
     public function admin_fiche_paie($id = null) {
         $user = $this->User->findById($id);
-        CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la fiche de paie de l'employé " . $user['User']['prenom'] . " " . $user['User']['nom'] . '.');
+        CakeLog::write("info", "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a consulté la fiche de paie de l'employé " . $user['User']['prenom'] . " " . $user['User']['nom'] . ".");
         $group = $this->Group->find('first', array(
             'conditions' => array('id' => $user['User']['group_id'])
         ));

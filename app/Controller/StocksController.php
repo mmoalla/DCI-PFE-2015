@@ -36,7 +36,7 @@ class StocksController extends AppController {
             // POST
             if (empty($stock)) {
                 if ($this->Stock->save($this->request->data)) {
-                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a ajouté des medicaments au stock");
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a ajouté des medicaments au stock.");
                     $this->Session->setFlash(__('Stock Ajouté'), 'notif', array('type' => 'success'));
                     $this->redirect(array('controller' => 'stocks', 'action' => 'home_index'));
                 } else {
@@ -49,7 +49,7 @@ class StocksController extends AppController {
                 $qte = $stock['Stock']['stock'] + $this->request->data['Stock']['stock'];
                 $stock['Stock']['stock'] = $qte;
                 if ($this->Stock->save($stock)) {
-                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a ajouté des médicaments au stock ");
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user("prenom") . " " . $this->Auth->user("nom") . " a ajouté des médicaments au stock.");
                     $this->Session->setFlash(__('Stock modifié'), 'notif', array('type' => 'success'));
                     $this->redirect(array('controller' => 'stocks', 'action' => 'home_index'));
                 } else {
@@ -67,7 +67,7 @@ class StocksController extends AppController {
         if ($this->request->is('put')) {
             if (!empty($this->request->data)) {
                 if ($this->Stock->save($this->request->data)) {
-                    CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié la chambre n° " . $this->request->data['Chambre']['numero']);
+                    CakeLog::write('info', "L'administrateur " . $this->Auth->user('prenom') . ' ' . $this->Auth->user('nom') . " a modifié la chambre n° " . $this->request->data['Chambre']['numero'] . ".");
                     $this->Session->setFlash(__('Stocks alimenté'), 'notif', array('type' => 'success'));
                     $this->redirect(array('action' => 'index'));
                 } else {
